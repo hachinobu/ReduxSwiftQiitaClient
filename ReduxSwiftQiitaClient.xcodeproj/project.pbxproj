@@ -15,6 +15,7 @@
 		C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C21A8B331CF462AF00EB487C /* LaunchScreen.storyboard */; };
 		C21A8B401CF462AF00EB487C /* ReduxSwiftQiitaClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B3F1CF462AF00EB487C /* ReduxSwiftQiitaClientTests.swift */; };
 		C21A8B4B1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B4A1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift */; };
+		C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B5D1CF46C7E00EB487C /* R.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C21A8B461CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReduxSwiftQiitaClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C21A8B4A1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxSwiftQiitaClientUITests.swift; sourceTree = "<group>"; };
 		C21A8B4C1CF462AF00EB487C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C21A8B5D1CF46C7E00EB487C /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 		C21A8B291CF462AF00EB487C /* ReduxSwiftQiitaClient */ = {
 			isa = PBXGroup;
 			children = (
+				C21A8B5A1CF46C2800EB487C /* R */,
 				C21A8B581CF46A2F00EB487C /* View */,
 				C21A8B2A1CF462AF00EB487C /* AppDelegate.swift */,
 				C21A8B2E1CF462AF00EB487C /* Main.storyboard */,
@@ -149,6 +152,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C21A8B5A1CF46C2800EB487C /* R */ = {
+			isa = PBXGroup;
+			children = (
+				C21A8B5D1CF46C7E00EB487C /* R.generated.swift */,
+			);
+			path = R;
+			sourceTree = "<group>";
+		};
 		D52DB9078718A0F4ABB4817E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +175,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C21A8B4F1CF462AF00EB487C /* Build configuration list for PBXNativeTarget "ReduxSwiftQiitaClient" */;
 			buildPhases = (
+				C21A8B591CF46BE300EB487C /* ShellScript */,
 				8D4948B4B7485A9779E201A3 /* Check Pods Manifest.lock */,
 				C21A8B231CF462AF00EB487C /* Sources */,
 				C21A8B241CF462AF00EB487C /* Frameworks */,
@@ -332,6 +344,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		C21A8B591CF46BE300EB487C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -341,6 +366,7 @@
 			files = (
 				C21A8B2D1CF462AF00EB487C /* ViewController.swift in Sources */,
 				C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */,
+				C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
