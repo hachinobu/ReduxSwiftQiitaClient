@@ -12,8 +12,17 @@ struct R {
     private init() {}
   }
   
-  /// This `R.file` struct is generated, and contains static references to 0 files.
+  /// This `R.file` struct is generated, and contains static references to 1 files.
   struct file {
+    /// Resource file `Secrets.plist`.
+    static let secretsPlist = FileResource(bundle: _R.hostingBundle, name: "Secrets", pathExtension: "plist")
+    
+    /// `bundle.URLForResource("Secrets", withExtension: "plist")`
+    static func secretsPlist(_: Void) -> NSURL? {
+      let fileResource = R.file.secretsPlist
+      return fileResource.bundle.URLForResource(fileResource)
+    }
+    
     private init() {}
   }
   
@@ -32,8 +41,11 @@ struct R {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 0 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
+    /// Reuse identifier `ArticleListCell`.
+    static let articleListCell: ReuseIdentifier<ArticleListCell> = ReuseIdentifier(identifier: "ArticleListCell")
+    
     private init() {}
   }
   
@@ -44,19 +56,19 @@ struct R {
   
   /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
+    /// Storyboard `ArticleList`.
+    static let articleList = _R.storyboard.articleList()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
-    /// Storyboard `Main`.
-    static let main = _R.storyboard.main()
+    
+    /// `UIStoryboard(name: "ArticleList", bundle: ...)`
+    static func articleList(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.articleList)
+    }
     
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void) -> UIStoryboard {
       return UIStoryboard(resource: R.storyboard.launchScreen)
-    }
-    
-    /// `UIStoryboard(name: "Main", bundle: ...)`
-    static func main(_: Void) -> UIStoryboard {
-      return UIStoryboard(resource: R.storyboard.main)
     }
     
     private init() {}
@@ -79,20 +91,20 @@ struct _R {
   }
   
   struct storyboard {
+    struct articleList: StoryboardResourceWithInitialControllerType {
+      typealias InitialController = UINavigationController
+      
+      let bundle = _R.hostingBundle
+      let name = "ArticleList"
+      
+      private init() {}
+    }
+    
     struct launchScreen: StoryboardResourceWithInitialControllerType {
       typealias InitialController = UIViewController
       
       let bundle = _R.hostingBundle
       let name = "LaunchScreen"
-      
-      private init() {}
-    }
-    
-    struct main: StoryboardResourceWithInitialControllerType {
-      typealias InitialController = ViewController
-      
-      let bundle = _R.hostingBundle
-      let name = "Main"
       
       private init() {}
     }
