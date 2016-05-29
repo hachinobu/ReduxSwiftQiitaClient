@@ -16,17 +16,20 @@
 		C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B5D1CF46C7E00EB487C /* R.generated.swift */; };
 		C21A8B611CF46EA400EB487C /* ArticleList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C21A8B601CF46EA400EB487C /* ArticleList.storyboard */; };
 		C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B631CF4745D00EB487C /* ArticleListCell.swift */; };
-		C21A8B671CF4768C00EB487C /* ArticleListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B661CF4768C00EB487C /* ArticleListTableViewController.swift */; };
 		C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6A1CF4788C00EB487C /* ArticleModel.swift */; };
 		C21A8B6D1CF478F300EB487C /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6C1CF478F300EB487C /* TagModel.swift */; };
 		C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6E1CF4797F00EB487C /* UserModel.swift */; };
 		C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B701CF47AB200EB487C /* ArticleListModel.swift */; };
 		C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */; };
-		C24C81881CF54A1800924574 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C24C81871CF54A1800924574 /* Secrets.plist */; };
 		C24C81A81CF5C38500924574 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A71CF5C38500924574 /* AppState.swift */; };
 		C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A91CF5C51400924574 /* HomeState.swift */; };
 		C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AC1CF5C5B800924574 /* ArticleVM.swift */; };
 		C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */; };
+		C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270968D1CFAB570008E3273 /* QiitaAPIActionCreator.swift */; };
+		C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */; };
+		C27096921CFAC6CB008E3273 /* QiitaAPIActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27096911CFAC6CB008E3273 /* QiitaAPIActions.swift */; };
+		C27096941CFB18FA008E3273 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C27096931CFB18FA008E3273 /* Secrets.plist */; };
+		C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,17 +67,20 @@
 		C21A8B5D1CF46C7E00EB487C /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		C21A8B601CF46EA400EB487C /* ArticleList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArticleList.storyboard; sourceTree = "<group>"; };
 		C21A8B631CF4745D00EB487C /* ArticleListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListCell.swift; sourceTree = "<group>"; };
-		C21A8B661CF4768C00EB487C /* ArticleListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListTableViewController.swift; sourceTree = "<group>"; };
 		C21A8B6A1CF4788C00EB487C /* ArticleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		C21A8B6C1CF478F300EB487C /* TagModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
 		C21A8B6E1CF4797F00EB487C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		C21A8B701CF47AB200EB487C /* ArticleListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListModel.swift; sourceTree = "<group>"; };
 		C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaEndpoint.swift; sourceTree = "<group>"; };
-		C24C81871CF54A1800924574 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		C24C81A71CF5C38500924574 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C24C81A91CF5C51400924574 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		C24C81AC1CF5C5B800924574 /* ArticleVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleVM.swift; sourceTree = "<group>"; };
 		C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeReducer.swift; sourceTree = "<group>"; };
+		C270968D1CFAB570008E3273 /* QiitaAPIActionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaAPIActionCreator.swift; sourceTree = "<group>"; };
+		C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListTableViewController.swift; sourceTree = "<group>"; };
+		C27096911CFAC6CB008E3273 /* QiitaAPIActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaAPIActions.swift; sourceTree = "<group>"; };
+		C27096931CFB18FA008E3273 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
+		C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreLoadingFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,7 @@
 		C21A8B291CF462AF00EB487C /* ReduxSwiftQiitaClient */ = {
 			isa = PBXGroup;
 			children = (
+				C270968C1CFAB545008E3273 /* Actions */,
 				C24C81AE1CF5CD5800924574 /* Reducer */,
 				C24C81A61CF5C36800924574 /* State */,
 				C24C81841CF5475D00924574 /* Resource */,
@@ -172,6 +179,7 @@
 		C21A8B581CF46A2F00EB487C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C2C1C2A91CFD571700DCD4CE /* CustomViews */,
 				C21A8B651CF4751B00EB487C /* ViewControllers */,
 				C21A8B621CF473C900EB487C /* TableViewCells */,
 				C21A8B5F1CF46E2C00EB487C /* Storyboards */,
@@ -206,7 +214,7 @@
 		C21A8B651CF4751B00EB487C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C21A8B661CF4768C00EB487C /* ArticleListTableViewController.swift */,
+				C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -243,7 +251,7 @@
 		C24C81841CF5475D00924574 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				C24C81871CF54A1800924574 /* Secrets.plist */,
+				C27096931CFB18FA008E3273 /* Secrets.plist */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -271,6 +279,23 @@
 				C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */,
 			);
 			path = Reducer;
+			sourceTree = "<group>";
+		};
+		C270968C1CFAB545008E3273 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				C270968D1CFAB570008E3273 /* QiitaAPIActionCreator.swift */,
+				C27096911CFAC6CB008E3273 /* QiitaAPIActions.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		C2C1C2A91CFD571700DCD4CE /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		D52DB9078718A0F4ABB4817E /* Frameworks */ = {
@@ -389,7 +414,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C24C81881CF54A1800924574 /* Secrets.plist in Resources */,
+				C27096941CFB18FA008E3273 /* Secrets.plist in Resources */,
 				C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */,
 				C21A8B611CF46EA400EB487C /* ArticleList.storyboard in Resources */,
 				C21A8B321CF462AF00EB487C /* Assets.xcassets in Resources */,
@@ -479,17 +504,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				C21A8B6D1CF478F300EB487C /* TagModel.swift in Sources */,
+				C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */,
 				C24C81A81CF5C38500924574 /* AppState.swift in Sources */,
 				C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */,
+				C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */,
 				C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */,
 				C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */,
 				C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */,
 				C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */,
 				C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */,
+				C27096921CFAC6CB008E3273 /* QiitaAPIActions.swift in Sources */,
 				C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */,
 				C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */,
+				C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */,
 				C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */,
-				C21A8B671CF4768C00EB487C /* ArticleListTableViewController.swift in Sources */,
 				C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

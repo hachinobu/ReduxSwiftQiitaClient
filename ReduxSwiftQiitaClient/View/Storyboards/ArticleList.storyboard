@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MWs-Mj-xaq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MWs-Mj-xaq">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -14,6 +14,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="D42-oj-GlC" customClass="MoreLoadingFooterView" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="192" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OTm-II-fqR">
+                                    <rect key="frame" x="282" y="3" width="37" height="37"/>
+                                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="OTm-II-fqR" firstAttribute="centerX" secondItem="D42-oj-GlC" secondAttribute="centerX" id="Agb-9K-aeb"/>
+                                <constraint firstItem="OTm-II-fqR" firstAttribute="centerY" secondItem="D42-oj-GlC" secondAttribute="centerY" id="apU-as-MUf"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="loadingIndicator" destination="OTm-II-fqR" id="Fas-f1-U2N"/>
+                            </connections>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ArticleListCell" rowHeight="100" id="Tcp-IU-oc1" customClass="ArticleListCell" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="100"/>
@@ -30,7 +48,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タイトル" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AaY-tm-vpq">
-                                            <rect key="frame" x="76" y="29" width="491" height="41"/>
+                                            <rect key="frame" x="76" y="29" width="481" height="41"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -44,9 +62,6 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ImZ-RM-rV5">
-                                            <rect key="frame" x="31" y="40" width="20" height="20"/>
-                                        </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投稿者 日時" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIt-ph-Wg1">
                                             <rect key="frame" x="76" y="8" width="483" height="21"/>
                                             <constraints>
@@ -65,36 +80,20 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="ipt-5z-0u8" firstAttribute="top" secondItem="AaY-tm-vpq" secondAttribute="bottom" id="38e-Aj-tkR"/>
-                                        <constraint firstItem="4TE-tL-3bL" firstAttribute="leading" secondItem="gBc-gC-VEh" secondAttribute="leading" constant="16" id="4nj-BM-A1i"/>
                                         <constraint firstItem="AaY-tm-vpq" firstAttribute="leading" secondItem="4TE-tL-3bL" secondAttribute="trailing" constant="10" id="Dh0-Ua-hEb"/>
                                         <constraint firstItem="zIt-ph-Wg1" firstAttribute="leading" secondItem="4TE-tL-3bL" secondAttribute="trailing" constant="10" id="HLc-jl-jVX"/>
                                         <constraint firstItem="4TE-tL-3bL" firstAttribute="leading" secondItem="gBc-gC-VEh" secondAttribute="leading" constant="16" id="N9v-cN-D8h"/>
                                         <constraint firstItem="zIt-ph-Wg1" firstAttribute="top" secondItem="gBc-gC-VEh" secondAttribute="top" constant="8" id="QEe-u8-7B4"/>
-                                        <constraint firstItem="zIt-ph-Wg1" firstAttribute="leading" secondItem="4TE-tL-3bL" secondAttribute="leading" constant="10" id="Qd4-oj-vB8"/>
                                         <constraint firstItem="ipt-5z-0u8" firstAttribute="leading" secondItem="4TE-tL-3bL" secondAttribute="trailing" constant="10" id="bBd-eM-4W8"/>
                                         <constraint firstItem="4TE-tL-3bL" firstAttribute="centerY" secondItem="gBc-gC-VEh" secondAttribute="centerY" id="gA1-xQ-wU3"/>
                                         <constraint firstAttribute="bottom" secondItem="ipt-5z-0u8" secondAttribute="bottom" constant="8" id="hMh-bN-MeC"/>
-                                        <constraint firstItem="4TE-tL-3bL" firstAttribute="leading" secondItem="zIt-ph-Wg1" secondAttribute="leading" id="iTh-KF-rtd"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="zIt-ph-Wg1" secondAttribute="trailing" id="mMZ-hf-op3"/>
-                                        <constraint firstItem="zIt-ph-Wg1" firstAttribute="leading" secondItem="4TE-tL-3bL" secondAttribute="leading" constant="10" id="mkn-xS-Yoa"/>
-                                        <constraint firstAttribute="trailing" secondItem="AaY-tm-vpq" secondAttribute="trailing" id="nV7-EV-wDa"/>
-                                        <constraint firstItem="ipt-5z-0u8" firstAttribute="top" secondItem="AaY-tm-vpq" secondAttribute="bottom" id="ppX-GA-PCh"/>
+                                        <constraint firstAttribute="trailing" secondItem="AaY-tm-vpq" secondAttribute="trailing" constant="10" id="nV7-EV-wDa"/>
                                         <constraint firstItem="AaY-tm-vpq" firstAttribute="top" secondItem="zIt-ph-Wg1" secondAttribute="bottom" id="skI-B1-fz0"/>
-                                        <constraint firstItem="ImZ-RM-rV5" firstAttribute="centerX" secondItem="4TE-tL-3bL" secondAttribute="centerX" id="tLg-wE-xNS"/>
-                                        <constraint firstItem="ImZ-RM-rV5" firstAttribute="centerY" secondItem="4TE-tL-3bL" secondAttribute="centerY" id="tSc-e7-DBH"/>
                                         <constraint firstAttribute="trailing" secondItem="ipt-5z-0u8" secondAttribute="trailing" id="yqw-eJ-5G0"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="4nj-BM-A1i"/>
-                                            <exclude reference="iTh-KF-rtd"/>
-                                            <exclude reference="Qd4-oj-vB8"/>
-                                            <exclude reference="mkn-xS-Yoa"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="imageLoadIndicator" destination="ImZ-RM-rV5" id="oEE-sQ-5qE"/>
                                     <outlet property="postedInfoLabel" destination="zIt-ph-Wg1" id="vzf-k9-SOU"/>
                                     <outlet property="profileImageView" destination="4TE-tL-3bL" id="DUZ-oP-aOI"/>
                                     <outlet property="tagLabel" destination="ipt-5z-0u8" id="Qeb-v0-3EZ"/>
@@ -108,6 +107,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5At-a1-8vK"/>
+                    <connections>
+                        <outlet property="moreLoadingFooterView" destination="D42-oj-GlC" id="mEa-Ca-HR6"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNJ-F9-uOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

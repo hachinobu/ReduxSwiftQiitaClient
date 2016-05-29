@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import ReSwift
+
+let mainStore = Store(reducer: CombinedReducer([HomeReducer()]), state: AppState())
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

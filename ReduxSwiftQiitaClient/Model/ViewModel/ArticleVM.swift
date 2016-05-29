@@ -21,6 +21,13 @@ struct ArticleVM {
         return articleModel?.user?.id ?? ""
     }
     
+    func fetchPostedInfo() -> String {
+        guard let userId = articleModel?.user?.id else {
+            return ""
+        }
+        return userId + " が投稿しました"
+    }
+    
     func fetchProfileImageURL() -> String {
         return articleModel?.user?.profileImageUrl ?? ""
     }
@@ -35,6 +42,14 @@ struct ArticleVM {
     
     func fetchArticleURL() -> String {
         return articleModel?.url ?? ""
+    }
+    
+    func fetchDownloadURLString() -> String {
+        return articleModel?.user?.profileImageUrl ?? ""
+    }
+    
+    func fetchDownloadURL() -> NSURL? {
+        return NSURL(string: fetchDownloadURLString())
     }
     
     func fetchTags() -> String {

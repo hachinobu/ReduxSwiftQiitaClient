@@ -9,99 +9,140 @@
 import UIKit
 import APIKit
 import ReSwift
+import Kingfisher
 
+private extension Selector {
+    static let pullToRefresh = #selector(ArticleListTableViewController.refreshData)
+}
 
 class ArticleListTableViewController: UITableViewController {
 
+    var homeState = HomeState() {
+        didSet {
+            if homeState.hasError() {
+                showErrorDialog()
+                return
+            }
+            expireCache()
+            updateNetworkActivityIndicator()
+            updateMoreLoadingIndicator()
+            reloadView()
+        }
+    }
+    
+    @IBOutlet weak var moreLoadingFooterView: MoreLoadingFooterView!
+    let refreshUI = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        let request = GetAllArticleEndpoint(queryParameters: ["per_page": 100])
-        Session.sendRequest(request) { result in
-            switch result {
-            case .Success(let articleList):
-                print(articleList.articleModels?.count)
-            case .Failure(let error):
-                print(error)
-            }
-        }
+        setupUI()
+        refreshData()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        mainStore.subscribe(self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    private func setupUI() {
+        title = "ホーム"
+        tableView.addSubview(refreshUI)
+        refreshUI.addTarget(self, action: .pullToRefresh, forControlEvents: .ValueChanged)
+    }
+    
+    func refreshData() {
+        mainStore.dispatch(RefreshAction(true))
+        mainStore.dispatch(FetchAction(true))
+        let actionCreator = QiitaAPIActionCreator.fetchAllArticleList { [unowned self] store in
+            let refreshAction = RefreshAction(false, articleVMList: self.homeState.articleVMList, pageNumber: self.homeState.pageNumber)
+            store.dispatch(refreshAction)
+            store.dispatch(FetchAction(false))
+        }
+        mainStore.dispatch(actionCreator)
+    }
+    
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return homeState.fetchArticleListCount()
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleListCell, forIndexPath: indexPath)!
+        let viewModel = homeState.fetchArticleVM(indexPath.row)
+        cell.updateCell(viewModel)
+        
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        guard indexPath.row == homeState.fetchArticleListEndIndex() && !homeState.showMoreLoading else { return }
+        
+        mainStore.dispatch(ShowMoreLoadingAction(true))
+        let actionCreator = QiitaAPIActionCreator.fetchMoreArticleList { store in
+            store.dispatch(ShowMoreLoadingAction(false))
+        }
+        mainStore.dispatch(actionCreator)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
+
+//MARK: StoreSubscriber
+extension ArticleListTableViewController: StoreSubscriber {
+    
+    func newState(state: AppState) {
+        homeState = state.home
+    }
+    
+}
+
+//MARK: Stateが更新された時に呼ばれる処理
+extension ArticleListTableViewController {
+    
+    private func showErrorDialog() {
+        let alert = UIAlertController(title: "エラー", message: homeState.fetchErrorMessage(), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        navigationController?.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func expireCache() {
+        guard homeState.isRefresh && homeState.fetchArticleListCount() == 0 else { return }
+        KingfisherManager.sharedManager.cache.clearMemoryCache()
+        KingfisherManager.sharedManager.cache.clearDiskCache()
+    }
+    
+    private func updateNetworkActivityIndicator() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = homeState.isFetch
+    }
+    
+    private func updateMoreLoadingIndicator() {
+        moreLoadingFooterView.updateIndicatorView(homeState.showMoreLoading)
+    }
+    
+    private func reloadView() {
+        guard homeState.fetchArticleListCount() > 0 else { return }
+        if homeState.showMoreLoading || homeState.isRefresh { return }
+        tableView.reloadData()
+        refreshUI.endRefreshing()
+    }
+    
+}
+
+
+
+
