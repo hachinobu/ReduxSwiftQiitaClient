@@ -69,3 +69,30 @@ struct MoreAllArticleResultAction: Action {
     }
     
 }
+
+struct ArticleDetailAction: Action {
+    
+    static let type = "ArticleDetailAction"
+    let articleVM: ArticleVM
+    
+    init(_ articleVM: ArticleVM) {
+        self.articleVM = articleVM
+    }
+    
+}
+
+struct HasStockArticleAction: Action {
+    
+    static let type = "HasStockArticleAction"
+    let hasStock: Bool
+    
+    init(_ hasStock: Bool) {
+        self.hasStock = hasStock
+    }
+    
+}
+
+
+
+
+

@@ -12,5 +12,6 @@ import ReSwift
 struct AppState: StateType {
     
     var home = HomeState()
+    var articleDetail = ArticleDetailState()
     
 }

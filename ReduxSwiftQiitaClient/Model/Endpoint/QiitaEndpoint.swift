@@ -58,6 +58,14 @@ extension QiitaRequestType where Response: Mappable {
     
 }
 
+extension QiitaRequestType where Response == Bool {
+    
+    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> Response {
+        return true
+    }
+    
+}
+
 struct GetAllArticleEndpoint: QiitaRequestType {
     
     typealias Response = ArticleListModel
@@ -102,3 +110,21 @@ struct ArticleDetailEndpoint: QiitaRequestType {
     }
     
 }
+
+struct GetArticleStockStatus: QiitaRequestType {
+    
+    typealias Response = Bool
+    
+    var method: HTTPMethod {
+        return .GET
+    }
+    
+    var path: String = "/api/v2/items/"
+    
+    init(id: String) {
+        path += "\(id)/stock"
+    }
+    
+}
+
+

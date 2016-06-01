@@ -41,8 +41,12 @@ struct R {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
+    /// Reuse identifier `ArticleDetailBodyCell`.
+    static let articleDetailBodyCell: ReuseIdentifier<ArticleDetailBodyCell> = ReuseIdentifier(identifier: "ArticleDetailBodyCell")
+    /// Reuse identifier `ArticleDetailTopInfoCell`.
+    static let articleDetailTopInfoCell: ReuseIdentifier<ArticleDetailTopInfoCell> = ReuseIdentifier(identifier: "ArticleDetailTopInfoCell")
     /// Reuse identifier `ArticleListCell`.
     static let articleListCell: ReuseIdentifier<ArticleListCell> = ReuseIdentifier(identifier: "ArticleListCell")
     
@@ -54,12 +58,19 @@ struct R {
     private init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
+    /// Storyboard `ArticleDetail`.
+    static let articleDetail = _R.storyboard.articleDetail()
     /// Storyboard `ArticleList`.
     static let articleList = _R.storyboard.articleList()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
+    
+    /// `UIStoryboard(name: "ArticleDetail", bundle: ...)`
+    static func articleDetail(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.articleDetail)
+    }
     
     /// `UIStoryboard(name: "ArticleList", bundle: ...)`
     static func articleList(_: Void) -> UIStoryboard {
@@ -91,6 +102,15 @@ struct _R {
   }
   
   struct storyboard {
+    struct articleDetail: StoryboardResourceWithInitialControllerType {
+      typealias InitialController = UITableViewController
+      
+      let bundle = _R.hostingBundle
+      let name = "ArticleDetail"
+      
+      private init() {}
+    }
+    
     struct articleList: StoryboardResourceWithInitialControllerType {
       typealias InitialController = UINavigationController
       

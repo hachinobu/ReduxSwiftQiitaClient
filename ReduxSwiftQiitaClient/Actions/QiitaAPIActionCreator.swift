@@ -47,4 +47,21 @@ struct QiitaAPIActionCreator {
         
     }
     
+    static func fetchArticleStockStatus(id: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
+        
+        return { state, store in
+            
+            let request = GetArticleStockStatus(id: id)
+            Session.sendRequest(request) { result in
+                let hasStock: Bool = result.value != nil
+                let action = HasStockArticleAction(hasStock)
+                store.dispatch(action)
+                finishHandler?(store)
+            }
+            return nil
+            
+        }
+        
+    }
+    
 }

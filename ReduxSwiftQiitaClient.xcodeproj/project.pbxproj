@@ -30,6 +30,12 @@
 		C27096921CFAC6CB008E3273 /* QiitaAPIActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27096911CFAC6CB008E3273 /* QiitaAPIActions.swift */; };
 		C27096941CFB18FA008E3273 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C27096931CFB18FA008E3273 /* Secrets.plist */; };
 		C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */; };
+		C2E169BA1CFEF4FA009F1459 /* ArticleDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */; };
+		C2E169BC1CFF01EF009F1459 /* ArticleDetailReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169BB1CFF01EF009F1459 /* ArticleDetailReducer.swift */; };
+		C2E169BE1CFF0634009F1459 /* ArticleDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2E169BD1CFF0634009F1459 /* ArticleDetail.storyboard */; };
+		C2E169C01CFF0C46009F1459 /* ArticleDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */; };
+		C2E169C21CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169C11CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift */; };
+		C2E169C41CFF0F32009F1459 /* ArticleDetailBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169C31CFF0F32009F1459 /* ArticleDetailBodyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +87,12 @@
 		C27096911CFAC6CB008E3273 /* QiitaAPIActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaAPIActions.swift; sourceTree = "<group>"; };
 		C27096931CFB18FA008E3273 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 		C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreLoadingFooterView.swift; sourceTree = "<group>"; };
+		C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailState.swift; sourceTree = "<group>"; };
+		C2E169BB1CFF01EF009F1459 /* ArticleDetailReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailReducer.swift; sourceTree = "<group>"; };
+		C2E169BD1CFF0634009F1459 /* ArticleDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArticleDetail.storyboard; sourceTree = "<group>"; };
+		C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailTableViewController.swift; sourceTree = "<group>"; };
+		C2E169C11CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailTopInfoCell.swift; sourceTree = "<group>"; };
+		C2E169C31CFF0F32009F1459 /* ArticleDetailBodyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailBodyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				C21A8B601CF46EA400EB487C /* ArticleList.storyboard */,
+				C2E169BD1CFF0634009F1459 /* ArticleDetail.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -207,6 +220,8 @@
 			isa = PBXGroup;
 			children = (
 				C21A8B631CF4745D00EB487C /* ArticleListCell.swift */,
+				C2E169C11CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift */,
+				C2E169C31CFF0F32009F1459 /* ArticleDetailBodyCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -215,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */,
+				C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -261,6 +277,7 @@
 			children = (
 				C24C81A71CF5C38500924574 /* AppState.swift */,
 				C24C81A91CF5C51400924574 /* HomeState.swift */,
+				C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -277,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */,
+				C2E169BB1CFF01EF009F1459 /* ArticleDetailReducer.swift */,
 			);
 			path = Reducer;
 			sourceTree = "<group>";
@@ -416,6 +434,7 @@
 			files = (
 				C27096941CFB18FA008E3273 /* Secrets.plist in Resources */,
 				C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */,
+				C2E169BE1CFF0634009F1459 /* ArticleDetail.storyboard in Resources */,
 				C21A8B611CF46EA400EB487C /* ArticleList.storyboard in Resources */,
 				C21A8B321CF462AF00EB487C /* Assets.xcassets in Resources */,
 			);
@@ -504,20 +523,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C21A8B6D1CF478F300EB487C /* TagModel.swift in Sources */,
+				C2E169C41CFF0F32009F1459 /* ArticleDetailBodyCell.swift in Sources */,
 				C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */,
 				C24C81A81CF5C38500924574 /* AppState.swift in Sources */,
+				C2E169BA1CFEF4FA009F1459 /* ArticleDetailState.swift in Sources */,
 				C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */,
 				C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */,
 				C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */,
+				C2E169C21CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift in Sources */,
 				C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */,
 				C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */,
 				C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */,
+				C2E169C01CFF0C46009F1459 /* ArticleDetailTableViewController.swift in Sources */,
 				C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */,
 				C27096921CFAC6CB008E3273 /* QiitaAPIActions.swift in Sources */,
 				C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */,
 				C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */,
 				C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */,
 				C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */,
+				C2E169BC1CFF01EF009F1459 /* ArticleDetailReducer.swift in Sources */,
 				C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

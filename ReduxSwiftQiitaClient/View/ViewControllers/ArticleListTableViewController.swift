@@ -35,13 +35,13 @@ class ArticleListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mainStore.subscribe(self)
         setupUI()
         refreshData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        mainStore.subscribe(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,12 +92,21 @@ class ArticleListTableViewController: UITableViewController {
         mainStore.dispatch(actionCreator)
     }
     
+    // MARK: - Table view delegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let articleVM = homeState.fetchArticleVM(indexPath.row)
+        mainStore.dispatch(ArticleDetailAction(articleVM))
+        let vc = R.storyboard.articleDetail.initialViewController()!
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
