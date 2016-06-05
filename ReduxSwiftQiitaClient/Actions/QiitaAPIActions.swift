@@ -12,14 +12,7 @@ import Result
 import ReSwift
 
 struct FetchAction: Action {
-    
-    static let type = "FetchAction"
     let isFetch: Bool
-    
-    init(_ isFetch: Bool) {
-        self.isFetch = isFetch
-    }
-    
 }
 
 struct RefreshAction: Action {
@@ -71,25 +64,19 @@ struct MoreAllArticleResultAction: Action {
 }
 
 struct ArticleDetailAction: Action {
-    
-    static let type = "ArticleDetailAction"
-    let articleVM: ArticleVM
-    
-    init(_ articleVM: ArticleVM) {
-        self.articleVM = articleVM
-    }
-    
+    let result: Result<GetArticleDetailEndpoint.Response, SessionTaskError>
+}
+
+struct ArticleStockersAction: Action {
+    let result: Result<GetArticleStockersEndpoint.Response, SessionTaskError>
+}
+
+struct ArticleDetailIdAction: Action {
+    let articleId: String
 }
 
 struct HasStockArticleAction: Action {
-    
-    static let type = "HasStockArticleAction"
     let hasStock: Bool
-    
-    init(_ hasStock: Bool) {
-        self.hasStock = hasStock
-    }
-    
 }
 
 

@@ -21,11 +21,11 @@ extension ArticleDetailReducer: Reducer {
         var articleDetail = newState.articleDetail
         
         switch action {
+        case let action as ArticleDetailIdAction:
+            articleDetail.updateArticleId(action.articleId)
+            
         case let action as HasStockArticleAction:
             articleDetail.updateHasStock(action.hasStock)
-            
-        case let action as ArticleDetailAction:
-            articleDetail.updateArticleVM(action.articleVM)
             
         default:
             break

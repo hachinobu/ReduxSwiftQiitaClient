@@ -88,14 +88,12 @@ struct GetAllArticleEndpoint: QiitaRequestType {
         guard let json = object as? [[String: AnyObject]], responseObject = Mapper<ArticleModel>().mapArray(json) else {
             throw ResponseError.UnexpectedObject(object)
         }
-        
-        let articleList = ArticleListModel(articleModels: responseObject)
-        return articleList
+        return ArticleListModel(articleModels: responseObject)
     }
     
 }
 
-struct ArticleDetailEndpoint: QiitaRequestType {
+struct GetArticleDetailEndpoint: QiitaRequestType {
     
     typealias Response = ArticleModel
     
@@ -111,6 +109,29 @@ struct ArticleDetailEndpoint: QiitaRequestType {
     
 }
 
+struct GetArticleStockersEndpoint: QiitaRequestType {
+    
+    typealias Response = UserListModel
+    
+    var method: HTTPMethod {
+        return .GET
+    }
+    
+    var path: String
+    
+    init(id: String) {
+        path = "/api/v2/items/\(id)/stockers"
+    }
+    
+    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> Response {
+        guard let json = object as? [[String: AnyObject]], responseObject = Mapper<UserModel>().mapArray(json) else {
+            throw ResponseError.UnexpectedObject(object)
+        }
+        return UserListModel(userModels: responseObject)
+    }
+    
+}
+
 struct GetArticleStockStatus: QiitaRequestType {
     
     typealias Response = Bool
@@ -119,10 +140,10 @@ struct GetArticleStockStatus: QiitaRequestType {
         return .GET
     }
     
-    var path: String = "/api/v2/items/"
+    var path: String
     
     init(id: String) {
-        path += "\(id)/stock"
+        path = "/api/v2/items/\(id)/stock"
     }
     
 }

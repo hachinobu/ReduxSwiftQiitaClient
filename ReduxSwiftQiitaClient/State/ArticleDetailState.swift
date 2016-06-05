@@ -10,7 +10,8 @@ import Foundation
 
 struct ArticleDetailState {
     
-    private(set) var articleVM: ArticleVM!
+    private(set) var articleId: String!
+    private(set) var articleDetail: ArticleVM?
     private(set) var hasStock: Bool?
     
 }
@@ -18,8 +19,12 @@ struct ArticleDetailState {
 //MARK: Update
 extension ArticleDetailState {
     
-    mutating func updateArticleVM(articleVM: ArticleVM) {
-        self.articleVM = articleVM
+    mutating func updateArticleId(articleId: String) {
+        self.articleId = articleId
+    }
+    
+    mutating func updateArticleDetail(articleDetail: ArticleVM) {
+        self.articleDetail = articleDetail
     }
     
     mutating func updateHasStock(hasStock: Bool?) {
@@ -28,3 +33,19 @@ extension ArticleDetailState {
     
 }
 
+//MARK;
+extension ArticleDetailState {
+    
+    func hasArticleDetailData() -> Bool {
+        return articleDetail != nil
+    }
+    
+    func fetchTableSectionCount() -> Int {
+        return articleDetail == nil ? 0 : 1
+    }
+    
+    func fetchTableSectionRowCount() -> Int {
+        return articleDetail == nil ? 0 : 2
+    }
+    
+}

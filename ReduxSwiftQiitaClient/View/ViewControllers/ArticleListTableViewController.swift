@@ -17,7 +17,7 @@ private extension Selector {
 
 class ArticleListTableViewController: UITableViewController {
 
-    var homeState = HomeState() {
+    private var homeState = HomeState() {
         didSet {
             if homeState.hasError() {
                 showErrorDialog()
@@ -56,11 +56,11 @@ class ArticleListTableViewController: UITableViewController {
     
     func refreshData() {
         mainStore.dispatch(RefreshAction(true))
-        mainStore.dispatch(FetchAction(true))
+        mainStore.dispatch(FetchAction(isFetch: true))
         let actionCreator = QiitaAPIActionCreator.fetchAllArticleList { [unowned self] store in
             let refreshAction = RefreshAction(false, articleVMList: self.homeState.articleVMList, pageNumber: self.homeState.pageNumber)
             store.dispatch(refreshAction)
-            store.dispatch(FetchAction(false))
+            store.dispatch(FetchAction(isFetch: false))
         }
         mainStore.dispatch(actionCreator)
     }
@@ -104,7 +104,8 @@ class ArticleListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let articleVM = homeState.fetchArticleVM(indexPath.row)
-        mainStore.dispatch(ArticleDetailAction(articleVM))
+        let action = ArticleDetailIdAction(articleId: articleVM.fetchId())
+        mainStore.dispatch(action)
         let vc = R.storyboard.articleDetail.initialViewController()!
         navigationController?.pushViewController(vc, animated: true)
     }
