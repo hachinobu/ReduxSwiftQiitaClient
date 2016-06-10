@@ -18,20 +18,32 @@ extension ArticleDetailReducer: Reducer {
         
         let state = state ?? AppState()
         var newState = state
-        var articleDetail = newState.articleDetail
+        var articleDetailState = newState.articleDetail
         
         switch action {
         case let action as ArticleDetailIdAction:
-            articleDetail.updateArticleId(action.articleId)
+            articleDetailState.updateArticleId(action.articleId)
+            
+        case let action as ArticleDetailAction:
+            articleDetailState.updateArticleDetail(action.articleDetail)
+            articleDetailState.updateError(nil)
+            
+        case let action as ArticleStockersAction:
+            articleDetailState.updateStockUsers(action.stockers)
+            articleDetailState.updateError(nil)
             
         case let action as HasStockArticleAction:
-            articleDetail.updateHasStock(action.hasStock)
+            let stockStatus = StockStatus(isStock: action.hasStock)
+            articleDetailState.updateStockStatus(stockStatus)
+            
+        case let action as ArticleDetailErrorAction:
+            articleDetailState.updateError(action.error)
             
         default:
             break
         }
         
-        newState.articleDetail = articleDetail
+        newState.articleDetail = articleDetailState
         return newState
     }
     

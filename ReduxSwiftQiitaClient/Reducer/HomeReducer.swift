@@ -30,6 +30,7 @@ extension HomeReducer: Reducer {
             case .Success(let articleList):
                 let articleVMList = generateArticleVMList(articleList)
                 homeState.updateArticleVMList(articleVMList)
+                homeState.updateErrorMessage(nil)
                 
             case .Failure(let error):
                 switch error {

@@ -118,6 +118,7 @@ struct GetArticleStockersEndpoint: QiitaRequestType {
     }
     
     var path: String
+    var queryParameters: [String: AnyObject]? = ["per_page": 100]
     
     init(id: String) {
         path = "/api/v2/items/\(id)/stockers"
@@ -148,4 +149,35 @@ struct GetArticleStockStatus: QiitaRequestType {
     
 }
 
+struct DeleteStock: QiitaRequestType {
+    
+    typealias Response = Bool
+    
+    var method: HTTPMethod {
+        return .DELETE
+    }
+    
+    var path: String
+    
+    init(id: String) {
+        path = "/api/v2/items/\(id)/stock"
+    }
+    
+}
+
+struct ToStock: QiitaRequestType {
+    
+    typealias Response = Bool
+    
+    var method: HTTPMethod {
+        return .PUT
+    }
+    
+    var path: String
+    
+    init(id: String) {
+        path = "/api/v2/items/\(id)/stock"
+    }
+    
+}
 

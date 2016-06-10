@@ -63,23 +63,25 @@ struct MoreAllArticleResultAction: Action {
     
 }
 
+struct ArticleDetailIdAction: Action {
+    let articleId: String
+}
+
 struct ArticleDetailAction: Action {
-    let result: Result<GetArticleDetailEndpoint.Response, SessionTaskError>
+    let articleDetail: ArticleModel
 }
 
 struct ArticleStockersAction: Action {
-    let result: Result<GetArticleStockersEndpoint.Response, SessionTaskError>
-}
-
-struct ArticleDetailIdAction: Action {
-    let articleId: String
+    let stockers: UserListModel
 }
 
 struct HasStockArticleAction: Action {
     let hasStock: Bool
 }
 
-
+struct ArticleDetailErrorAction: Action {
+    let error: SessionTaskError
+}
 
 
 

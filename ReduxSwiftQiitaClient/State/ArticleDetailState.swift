@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import APIKit
 
 struct ArticleDetailState {
     
     private(set) var articleId: String!
-    private(set) var articleDetail: ArticleVM?
-    private(set) var hasStock: Bool?
+    private(set) var articleDetail: ArticleModel?
+    private(set) var stockStatus: StockStatus?
+    private(set) var stockUsers: UserListModel?
+    private(set) var error: SessionTaskError?
     
 }
 
@@ -23,12 +26,20 @@ extension ArticleDetailState {
         self.articleId = articleId
     }
     
-    mutating func updateArticleDetail(articleDetail: ArticleVM) {
+    mutating func updateArticleDetail(articleDetail: ArticleModel?) {
         self.articleDetail = articleDetail
     }
     
-    mutating func updateHasStock(hasStock: Bool?) {
-        self.hasStock = hasStock
+    mutating func updateStockStatus(stockStatus: StockStatus?) {
+        self.stockStatus = stockStatus
+    }
+    
+    mutating func updateStockUsers(stockUsers: UserListModel?) {
+        self.stockUsers = stockUsers
+    }
+    
+    mutating func updateError(error: SessionTaskError?) {
+        self.error = error
     }
     
 }
@@ -36,6 +47,38 @@ extension ArticleDetailState {
 //MARK;
 extension ArticleDetailState {
     
+    private func fetchStockCountDisplay() -> String {
+        guard let users = stockUsers?.userModels else {
+            return "0ストック"
+        }
+        return users.count == 100 ? "ストック数: 100+" : "ストック数: \(users.count)"
+    }
+    
+    func hasError() -> Bool {
+        return error != nil
+    }
+    
+    func fetchErrorMessage() -> String {
+        guard let error = error else {
+            return ""
+        }
+        
+        switch error {
+        case .ResponseError(let qiitaError as QiitaError):
+            return qiitaError.message
+        default:
+            return "通信処理でエラーが発生しました"
+        }
+    }
+    
+    func fetchArticleDetail() -> ArticleModel {
+        return articleDetail ?? ArticleModel()
+    }
+    
+    func hasStock() -> Bool {
+        return stockStatus?.isStock ?? false
+    }
+
     func hasArticleDetailData() -> Bool {
         return articleDetail != nil
     }
@@ -46,6 +89,33 @@ extension ArticleDetailState {
     
     func fetchTableSectionRowCount() -> Int {
         return articleDetail == nil ? 0 : 2
+    }
+    
+    func fetchArticleDetailTopInfo() -> (articleDetail: ArticleModel, stockCount: String, stockStatus: StockStatus) {
+        let status = stockStatus ?? StockStatus(isStock: false)
+        return (fetchArticleDetail(), fetchStockCountDisplay(), status)
+    }
+    
+    func fetchHtmlBody() -> String {
+        return articleDetail?.fetchRenderedBody() ?? ""
+    }
+    
+}
+
+struct StockStatus {
+    
+    let isStock: Bool
+    
+    func fetchBackgroundColor() -> UIColor {
+        return isStock ? UIColor.greenColor() : UIColor.whiteColor()
+    }
+    
+    func fetchTextColor() -> UIColor {
+        return isStock ? UIColor.whiteColor() : UIColor.blackColor()
+    }
+    
+    func fetchStockStatusTitle() -> String {
+        return isStock ? "ストック済み" : "ストック"
     }
     
 }

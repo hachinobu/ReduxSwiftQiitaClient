@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Kingfisher
+
+private extension Selector {
+    static let stockButtonTapped = #selector(ArticleDetailTopInfoCell.stockAction)
+}
 
 class ArticleDetailTopInfoCell: UITableViewCell {
 
@@ -25,6 +30,35 @@ class ArticleDetailTopInfoCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func stockAction() {
+        
+    }
+    
+    func updateCell(articleInfo: (articleDetail: ArticleModel, stockCount: String, stockStatus: StockStatus)) {
+        let article = articleInfo.articleDetail
+        titleLabel.text = article.fetchArticleTitle()
+        tagLabel.text = article.fetchTags()
+        userNameButton.setTitle(article.fetchUserId(), forState: .Normal)
+        postInfoLabel.text = " が投稿しました"
+        stockCountLabel.text = articleInfo.stockCount
+        updateStockButtonStatus(articleInfo.stockStatus)
+        
+        guard let downloadURL = article.fetchDownloadURL() else { return }
+        let resource = Resource(downloadURL: downloadURL, cacheKey: article.fetchId())
+        downloadProfileImage(resource)
+    }
+    
+    private func updateStockButtonStatus(stockStatus: StockStatus) {
+        stockButton.setTitle(stockStatus.fetchStockStatusTitle(), forState: .Normal)
+        stockButton.setTitleColor(stockStatus.fetchTextColor(), forState: .Normal)
+        stockButton.backgroundColor = stockStatus.fetchBackgroundColor()
+    }
+    
+    private func downloadProfileImage(resource: Resource) {
+        profileImageView.kf_showIndicatorWhenLoading = true
+        profileImageView.kf_setImageWithResource(resource, placeholderImage: nil, optionsInfo: [.Transition(ImageTransition.Fade(1))], progressBlock: nil, completionHandler: nil)
     }
 
 }

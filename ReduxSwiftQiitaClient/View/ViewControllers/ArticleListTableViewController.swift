@@ -102,7 +102,6 @@ class ArticleListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let articleVM = homeState.fetchArticleVM(indexPath.row)
         let action = ArticleDetailIdAction(articleId: articleVM.fetchId())
         mainStore.dispatch(action)

@@ -103,7 +103,7 @@ struct _R {
   
   struct storyboard {
     struct articleDetail: StoryboardResourceWithInitialControllerType {
-      typealias InitialController = UITableViewController
+      typealias InitialController = ArticleDetailTableViewController
       
       let bundle = _R.hostingBundle
       let name = "ArticleDetail"

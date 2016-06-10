@@ -14,7 +14,7 @@ class ArticleDetailBodyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        htmlWebView.scrollView.scrollEnabled = false
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

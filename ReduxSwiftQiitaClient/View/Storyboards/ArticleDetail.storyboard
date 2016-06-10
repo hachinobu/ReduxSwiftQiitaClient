@@ -5,16 +5,16 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Article Detail Table View Controller-->
         <scene sceneID="WQy-6u-yeS">
             <objects>
-                <tableViewController id="AXZ-3S-8NN" sceneMemberID="viewController">
+                <tableViewController id="AXZ-3S-8NN" customClass="ArticleDetailTableViewController" customModule="ReduxSwiftQiitaClient" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="txE-P9-Z73">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleDetailTopInfoCell" rowHeight="220" id="kEL-Zt-zrK" customClass="ArticleDetailTopInfoCell" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleDetailTopInfoCell" rowHeight="220" id="kEL-Zt-zrK" customClass="ArticleDetailTopInfoCell" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="220"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kEL-Zt-zrK" id="zoM-FQ-RCD">
@@ -46,15 +46,15 @@
                                                 <constraint firstAttribute="height" constant="50" id="rbJ-c5-c25"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="247" horizontalCompressionResistancePriority="747" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4l-Hs-bcn">
-                                            <rect key="frame" x="68" y="103" width="447" height="21"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4l-Hs-bcn">
+                                            <rect key="frame" x="68" y="103" width="33" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="Kxt-ae-XRR"/>
                                             </constraints>
                                             <state key="normal" title="User"/>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投稿者情報" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gv-0t-FAR">
-                                            <rect key="frame" x="517" y="103" width="75" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text=" が投稿しました" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gv-0t-FAR">
+                                            <rect key="frame" x="103" y="103" width="489" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="mFO-2L-RLA"/>
                                             </constraints>
@@ -118,14 +118,14 @@
                                     <outlet property="userNameButton" destination="T4l-Hs-bcn" id="P3d-mE-w4J"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleDetailBodyCell" rowHeight="290" id="TzU-5e-vbH" customClass="ArticleDetailBodyCell" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ArticleDetailBodyCell" rowHeight="290" id="TzU-5e-vbH" customClass="ArticleDetailBodyCell" customModule="ReduxSwiftQiitaClient" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="312" width="600" height="290"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TzU-5e-vbH" id="mnR-XN-d6a">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="289"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bxY-5w-Hv8">
+                                        <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bxY-5w-Hv8">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="289"/>
                                             <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                         </webView>

@@ -52,3 +52,11 @@ extension UserModel: Mappable {
     }
     
 }
+
+extension UserModel {
+    
+    func fetchUserName() -> String {
+        return name ?? ""
+    }
+    
+}
