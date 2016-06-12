@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 private extension Selector {
-    static let stockButtonTapped = #selector(ArticleDetailTopInfoCell.stockAction)
+    static let stockButtonTapped = #selector(ArticleDetailTopInfoCell.stockButtonAction)
 }
 
 class ArticleDetailTopInfoCell: UITableViewCell {
@@ -22,21 +22,30 @@ class ArticleDetailTopInfoCell: UITableViewCell {
     @IBOutlet weak var postInfoLabel: UILabel!
     @IBOutlet weak var stockCountLabel: UILabel!
     @IBOutlet weak var stockButton: UIButton!
+    var articleInfo: (articleDetail: ArticleModel, stockCount: String, stockStatus: StockStatus)? {
+        didSet {
+            updateCell()
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         stockButton.layer.cornerRadius = 4.0
+        stockButton.addTarget(self, action: .stockButtonTapped, forControlEvents: .TouchUpInside)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    func stockAction() {
-        
+    func stockButtonAction() {
+        guard let articleInfo = articleInfo else { return }
+        let isStock = !articleInfo.stockStatus.isStock
+        mainStore.dispatch(QiitaAPIActionCreator.updateStockStatus(articleInfo.articleDetail.fetchId(), toStock: isStock, finishHandler: nil))
     }
     
-    func updateCell(articleInfo: (articleDetail: ArticleModel, stockCount: String, stockStatus: StockStatus)) {
+    private func updateCell() {
+        guard let articleInfo = articleInfo else { return }
         let article = articleInfo.articleDetail
         titleLabel.text = article.fetchArticleTitle()
         tagLabel.text = article.fetchTags()

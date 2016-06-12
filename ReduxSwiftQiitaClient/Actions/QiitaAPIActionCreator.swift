@@ -84,13 +84,17 @@ struct QiitaAPIActionCreator {
         
     }
     
-    static func updateStockStatus(id: String, finishHandler: (Store<AppState> -> Void)?) -> Store<AppState>.ActionCreator {
+    static func updateStockStatus(id: String, toStock: Bool, finishHandler: (Store<AppState> -> Void)?) -> Store<AppState>.ActionCreator {
         
         return { state, store in
             
-            let request = ToStock(id: id)
+            let method: HTTPMethod = toStock ? .PUT : .DELETE
+            let request = UpdateArticleStockStatus(id: id, method: method)
             Session.sendRequest(request) { result in
-                
+                let isStock = result.value != nil ? toStock : !toStock
+                let action = HasStockArticleAction(hasStock: isStock)
+                store.dispatch(action)
+                finishHandler?(store)
             }
             return nil
             

@@ -36,8 +36,14 @@ extension ArticleDetailReducer: Reducer {
             let stockStatus = StockStatus(isStock: action.hasStock)
             articleDetailState.updateStockStatus(stockStatus)
             
+        case let action as FetchingStockStatusAction:
+            articleDetailState.updateFetchingStockStatus(action.fetchingStockStatus)
+            
         case let action as ArticleDetailErrorAction:
             articleDetailState.updateError(action.error)
+        
+        case let action as IsUserArticleListAction:
+            articleDetailState.updateUserArticleList(action.isUserArticleList)
             
         default:
             break

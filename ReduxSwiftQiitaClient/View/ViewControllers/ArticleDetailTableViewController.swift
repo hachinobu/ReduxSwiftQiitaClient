@@ -14,6 +14,7 @@ class ArticleDetailTableViewController: UITableViewController {
     private var articleDetailState = ArticleDetailState() {
         didSet {
             fetchStockStatus()
+            tableView.reloadData()
         }
     }
     var webViewHeight: CGFloat = 0.0
@@ -44,7 +45,7 @@ class ArticleDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleDetailTopInfoCell, forIndexPath: indexPath)!
-            cell.updateCell(articleDetailState.fetchArticleDetailTopInfo())
+            cell.articleInfo = articleDetailState.fetchArticleDetailTopInfo()
             return cell
         }
         
@@ -66,6 +67,16 @@ class ArticleDetailTableViewController: UITableViewController {
     private func fetchTableHeight(row: Int) -> CGFloat {
         return row == 0 ? UITableViewAutomaticDimension : webViewHeight
     }
+    
+    private func fetchArticleDetail() {
+        
+        mainStore.dispatch(FetchAction(isFetch: true))
+        let actionCreator = QiitaAPIActionCreator.fetchArticleDetailInfo(articleDetailState.articleId) { [weak self] store in
+            store.dispatch(FetchAction(isFetch: false))
+            self?.tableView.reloadData()
+        }
+        mainStore.dispatch(actionCreator)
+    }
 
 }
 
@@ -81,24 +92,15 @@ extension ArticleDetailTableViewController: StoreSubscriber {
 //MARK: State更新時に呼ばれる
 extension ArticleDetailTableViewController {
     
-    private func fetchArticleDetail() {
-        
-        mainStore.dispatch(FetchAction(isFetch: true))
-        let actionCreator = QiitaAPIActionCreator.fetchArticleDetailInfo(articleDetailState.articleId) { [weak self] store in
-            store.dispatch(FetchAction(isFetch: false))
-            self?.tableView.reloadData()
-        }
-        mainStore.dispatch(actionCreator)
-    }
-    
     private func fetchStockStatus() {
         
-        if articleDetailState.hasStock() {
-            return
-        }
+        guard articleDetailState.hasArticleDetailData() else { return }
+        if articleDetailState.hasStockStatus() || articleDetailState.fetchingStockStatus { return }
         
+        mainStore.dispatch(FetchingStockStatusAction(fetchingStockStatus: true))
         mainStore.dispatch(FetchAction(isFetch: true))
         let actionCreator = QiitaAPIActionCreator.fetchArticleStockStatus(articleDetailState.articleId) { [weak self] store in
+            mainStore.dispatch(FetchingStockStatusAction(fetchingStockStatus: false))
             store.dispatch(FetchAction(isFetch: false))
             self?.tableView.reloadData()
         }

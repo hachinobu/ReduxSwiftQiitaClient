@@ -17,7 +17,6 @@ struct FetchAction: Action {
 
 struct RefreshAction: Action {
     
-    static let type = "RefreshAction"
     let isRefresh: Bool
     let articleVMList: [ArticleVM]?
     let pageNumber: Int
@@ -32,7 +31,6 @@ struct RefreshAction: Action {
 
 struct AllArticleResultAction: Action {
     
-    static let type = "AllArticleResultAction"
     let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
     
     init(_ result: Result<GetAllArticleEndpoint.Response, SessionTaskError>) {
@@ -43,7 +41,6 @@ struct AllArticleResultAction: Action {
 
 struct ShowMoreLoadingAction: Action {
     
-    static let type = "ShowMoreLoadingAction"
     let showMoreLoading: Bool
     
     init(_ showMoreLoading: Bool) {
@@ -54,7 +51,6 @@ struct ShowMoreLoadingAction: Action {
 
 struct MoreAllArticleResultAction: Action {
     
-    static let type = "MoreAllArticleResultAction"
     let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
     
     init(_ result: Result<GetAllArticleEndpoint.Response, SessionTaskError>) {
@@ -81,6 +77,14 @@ struct HasStockArticleAction: Action {
 
 struct ArticleDetailErrorAction: Action {
     let error: SessionTaskError
+}
+
+struct FetchingStockStatusAction: Action {
+    let fetchingStockStatus: Bool
+}
+
+struct IsUserArticleListAction: Action {
+    let isUserArticleList: Bool
 }
 
 

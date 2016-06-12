@@ -13,9 +13,11 @@ struct ArticleDetailState {
     
     private(set) var articleId: String!
     private(set) var articleDetail: ArticleModel?
+    private(set) var fetchingStockStatus: Bool = false
     private(set) var stockStatus: StockStatus?
     private(set) var stockUsers: UserListModel?
     private(set) var error: SessionTaskError?
+    private(set) var isUserArticleList: Bool = false
     
 }
 
@@ -30,6 +32,10 @@ extension ArticleDetailState {
         self.articleDetail = articleDetail
     }
     
+    mutating func updateFetchingStockStatus(fetchingStockStatus: Bool) {
+        self.fetchingStockStatus = fetchingStockStatus
+    }
+    
     mutating func updateStockStatus(stockStatus: StockStatus?) {
         self.stockStatus = stockStatus
     }
@@ -40,6 +46,10 @@ extension ArticleDetailState {
     
     mutating func updateError(error: SessionTaskError?) {
         self.error = error
+    }
+    
+    mutating func updateUserArticleList(isUserArticleList: Bool) {
+        self.isUserArticleList = isUserArticleList
     }
     
 }
@@ -77,6 +87,10 @@ extension ArticleDetailState {
     
     func hasStock() -> Bool {
         return stockStatus?.isStock ?? false
+    }
+    
+    func hasStockStatus() -> Bool {
+        return stockStatus != nil
     }
 
     func hasArticleDetailData() -> Bool {

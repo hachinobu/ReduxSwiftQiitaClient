@@ -149,35 +149,19 @@ struct GetArticleStockStatus: QiitaRequestType {
     
 }
 
-struct DeleteStock: QiitaRequestType {
+struct UpdateArticleStockStatus: QiitaRequestType {
     
     typealias Response = Bool
     
-    var method: HTTPMethod {
-        return .DELETE
-    }
-    
     var path: String
+    var method: HTTPMethod
     
-    init(id: String) {
+    init(id: String, method: HTTPMethod) {
         path = "/api/v2/items/\(id)/stock"
+        self.method = method
     }
     
 }
 
-struct ToStock: QiitaRequestType {
-    
-    typealias Response = Bool
-    
-    var method: HTTPMethod {
-        return .PUT
-    }
-    
-    var path: String
-    
-    init(id: String) {
-        path = "/api/v2/items/\(id)/stock"
-    }
-    
-}
+
 
