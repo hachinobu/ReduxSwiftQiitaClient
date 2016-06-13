@@ -41,9 +41,6 @@ extension HomeReducer: Reducer {
                 }
             }
             
-        case let action as FetchAction:
-            homeState.updateIsFetch(action.isFetch)
-            
         case let action as MoreAllArticleResultAction:
             if let moreArticleList = action.result.value {
                 let articleVMList = generateArticleVMList(moreArticleList)

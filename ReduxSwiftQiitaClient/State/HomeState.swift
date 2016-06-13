@@ -13,7 +13,6 @@ struct HomeState {
     private(set) var pageNumber: Int = 1
     private(set) var articleVMList: [ArticleVM]?
     private(set) var errorMessage: String?
-    private(set) var isFetch: Bool = false
     private(set) var isRefresh: Bool = false
     private(set) var showMoreLoading: Bool = false
     
@@ -21,10 +20,6 @@ struct HomeState {
 
 //MARK: Update State
 extension HomeState {
-    
-    mutating func updateIsFetch(isFetch: Bool) {
-        self.isFetch = isFetch
-    }
     
     mutating func updateIsRefresh(isRefresh: Bool) {
         self.isRefresh = isRefresh

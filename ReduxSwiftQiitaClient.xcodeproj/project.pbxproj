@@ -21,6 +21,8 @@
 		C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6E1CF4797F00EB487C /* UserModel.swift */; };
 		C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B701CF47AB200EB487C /* ArticleListModel.swift */; };
 		C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */; };
+		C245AC291D0E3E2F00A2F232 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC281D0E3E2F00A2F232 /* LoadingState.swift */; };
+		C245AC2B1D0E3EFC00A2F232 /* LoadingStateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */; };
 		C24C81A81CF5C38500924574 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A71CF5C38500924574 /* AppState.swift */; };
 		C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A91CF5C51400924574 /* HomeState.swift */; };
 		C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AC1CF5C5B800924574 /* ArticleVM.swift */; };
@@ -79,6 +81,8 @@
 		C21A8B6E1CF4797F00EB487C /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		C21A8B701CF47AB200EB487C /* ArticleListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListModel.swift; sourceTree = "<group>"; };
 		C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaEndpoint.swift; sourceTree = "<group>"; };
+		C245AC281D0E3E2F00A2F232 /* LoadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
+		C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingStateReducer.swift; sourceTree = "<group>"; };
 		C24C81A71CF5C38500924574 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C24C81A91CF5C51400924574 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		C24C81AC1CF5C5B800924574 /* ArticleVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleVM.swift; sourceTree = "<group>"; };
@@ -281,6 +285,7 @@
 				C24C81A71CF5C38500924574 /* AppState.swift */,
 				C24C81A91CF5C51400924574 /* HomeState.swift */,
 				C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */,
+				C245AC281D0E3E2F00A2F232 /* LoadingState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 			children = (
 				C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */,
 				C2E169BB1CFF01EF009F1459 /* ArticleDetailReducer.swift */,
+				C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */,
 			);
 			path = Reducer;
 			sourceTree = "<group>";
@@ -530,6 +536,7 @@
 				C2BC2EC71D04516B005B920F /* UserListModel.swift in Sources */,
 				C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */,
 				C24C81A81CF5C38500924574 /* AppState.swift in Sources */,
+				C245AC291D0E3E2F00A2F232 /* LoadingState.swift in Sources */,
 				C2E169BA1CFEF4FA009F1459 /* ArticleDetailState.swift in Sources */,
 				C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */,
 				C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */,
@@ -537,6 +544,7 @@
 				C2E169C21CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift in Sources */,
 				C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */,
 				C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */,
+				C245AC2B1D0E3EFC00A2F232 /* LoadingStateReducer.swift in Sources */,
 				C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */,
 				C2E169C01CFF0C46009F1459 /* ArticleDetailTableViewController.swift in Sources */,
 				C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */,

@@ -70,9 +70,9 @@ class ArticleDetailTableViewController: UITableViewController {
     
     private func fetchArticleDetail() {
         
-        mainStore.dispatch(FetchAction(isFetch: true))
+        mainStore.dispatch(LoadingAction(isLoading: true))
         let actionCreator = QiitaAPIActionCreator.fetchArticleDetailInfo(articleDetailState.articleId) { [weak self] store in
-            store.dispatch(FetchAction(isFetch: false))
+            store.dispatch(LoadingAction(isLoading: false))
             self?.tableView.reloadData()
         }
         mainStore.dispatch(actionCreator)
@@ -98,10 +98,10 @@ extension ArticleDetailTableViewController {
         if articleDetailState.hasStockStatus() || articleDetailState.fetchingStockStatus { return }
         
         mainStore.dispatch(FetchingStockStatusAction(fetchingStockStatus: true))
-        mainStore.dispatch(FetchAction(isFetch: true))
+        mainStore.dispatch(LoadingAction(isLoading: true))
         let actionCreator = QiitaAPIActionCreator.fetchArticleStockStatus(articleDetailState.articleId) { [weak self] store in
             mainStore.dispatch(FetchingStockStatusAction(fetchingStockStatus: false))
-            store.dispatch(FetchAction(isFetch: false))
+            store.dispatch(LoadingAction(isLoading: false))
             self?.tableView.reloadData()
         }
         mainStore.dispatch(actionCreator)

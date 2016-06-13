@@ -24,7 +24,6 @@ class ArticleListTableViewController: UITableViewController {
                 return
             }
             expireCache()
-            updateNetworkActivityIndicator()
             updateMoreLoadingIndicator()
             reloadView()
         }
@@ -56,11 +55,11 @@ class ArticleListTableViewController: UITableViewController {
     
     func refreshData() {
         mainStore.dispatch(RefreshAction(true))
-        mainStore.dispatch(FetchAction(isFetch: true))
+        mainStore.dispatch(LoadingAction(isLoading: true))
         let actionCreator = QiitaAPIActionCreator.fetchAllArticleList { [unowned self] store in
             let refreshAction = RefreshAction(false, articleVMList: self.homeState.articleVMList, pageNumber: self.homeState.pageNumber)
             store.dispatch(refreshAction)
-            store.dispatch(FetchAction(isFetch: false))
+            store.dispatch(LoadingAction(isLoading: false))
         }
         mainStore.dispatch(actionCreator)
     }
@@ -133,10 +132,6 @@ extension ArticleListTableViewController {
         guard homeState.isRefresh && homeState.fetchArticleListCount() == 0 else { return }
         KingfisherManager.sharedManager.cache.clearMemoryCache()
         KingfisherManager.sharedManager.cache.clearDiskCache()
-    }
-    
-    private func updateNetworkActivityIndicator() {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = homeState.isFetch
     }
     
     private func updateMoreLoadingIndicator() {

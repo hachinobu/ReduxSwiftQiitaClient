@@ -11,8 +11,8 @@ import APIKit
 import Result
 import ReSwift
 
-struct FetchAction: Action {
-    let isFetch: Bool
+struct LoadingAction: Action {
+    let isLoading: Bool
 }
 
 struct RefreshAction: Action {

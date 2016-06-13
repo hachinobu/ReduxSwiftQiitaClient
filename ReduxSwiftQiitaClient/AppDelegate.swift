@@ -9,7 +9,7 @@
 import UIKit
 import ReSwift
 
-let mainStore = Store(reducer: CombinedReducer([HomeReducer(), ArticleDetailReducer()]), state: AppState())
+let mainStore = Store(reducer: CombinedReducer([LoadingStateReducer(), HomeReducer(), ArticleDetailReducer()]), state: AppState())
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        mainStore.subscribe(self)
         return true
     }
 
@@ -43,5 +44,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+}
+
+extension AppDelegate: StoreSubscriber {
+    
+    func newState(state: AppState) {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = state.loading.isLoading
+    }
+    
 }
 
