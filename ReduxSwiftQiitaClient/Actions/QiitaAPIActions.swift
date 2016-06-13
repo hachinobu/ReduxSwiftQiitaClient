@@ -102,3 +102,15 @@ struct IsUserArticleListAction: Action {
 struct FinishMoreUserArticleAction: Action {
     let finishMoreUserArticle: Bool
 }
+
+struct ResetUserArticleStateAction: Action {
+    
+    let userId: String? = nil
+    let pageNumber: Int = 1
+    let articleVMList: [ArticleVM]? = nil
+    let errorMessage: String? = nil
+    let isRefresh: Bool = false
+    let showMoreLoading: Bool = false
+    let finishMoreUserArticle: Bool = false
+    
+}

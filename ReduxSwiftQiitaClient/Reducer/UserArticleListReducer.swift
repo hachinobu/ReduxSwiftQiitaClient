@@ -58,6 +58,15 @@ extension UserArticleListReducer: Reducer {
         case let action as FinishMoreUserArticleAction:
             userArticleListState.updateFinishMoreArticle(action.finishMoreUserArticle)
             
+        case let action as ResetUserArticleStateAction:
+            userArticleListState.updateUserId(action.userId)
+            userArticleListState.updatePageNumber(action.pageNumber)
+            userArticleListState.updateArticleVMList(action.articleVMList)
+            userArticleListState.updateErrorMessage(nil)
+            userArticleListState.updateIsRefresh(action.isRefresh)
+            userArticleListState.updateShowMoreLoading(action.showMoreLoading)
+            userArticleListState.updateFinishMoreArticle(action.finishMoreUserArticle)
+            
         default:
             break
         }

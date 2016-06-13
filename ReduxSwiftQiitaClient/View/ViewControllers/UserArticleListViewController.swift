@@ -37,9 +37,13 @@ class UserArticleListViewController: UITableViewController {
         setupUI()
         refreshData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    deinit {
+        mainStore.dispatch(ResetUserArticleStateAction())
     }
     
     private func setupUI() {
