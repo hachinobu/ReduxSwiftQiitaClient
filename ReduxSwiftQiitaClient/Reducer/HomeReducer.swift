@@ -58,9 +58,9 @@ extension HomeReducer: Reducer {
         return newState
     }
     
-    private func generateArticleVMList(articleList: ArticleListModel) -> [ArticleVM]? {
-        let articleVMList = articleList.articleModels?.flatMap { ArticleVM(articleModel: $0) }
-        return articleVMList
-    }
-    
+}
+
+func generateArticleVMList(articleList: ArticleListModel) -> [ArticleVM]? {
+    let articleVMList = articleList.articleModels?.flatMap { ArticleVM(articleModel: $0) }
+    return articleVMList
 }

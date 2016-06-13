@@ -22,7 +22,23 @@ struct QiitaAPIActionCreator {
             
             let request = GetAllArticleEndpoint(queryParameters: ["per_page": PerPage, "page": state.home.pageNumber])
             Session.sendRequest(request) { result in
-                let action = AllArticleResultAction(result)
+                let action = AllArticleResultAction(result: result)
+                store.dispatch(action)
+                finishHandler?(store)
+            }
+            return nil
+            
+        }
+        
+    }
+    
+    static func fetchUserAllArticleList(userId: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
+        
+        return { state, store in
+            
+            let request = GetUserArticleEndpoint(userId: userId, queryParameters: ["per_page": PerPage, "page": state.userArticleList.pageNumber])
+            Session.sendRequest(request) { result in
+                let action = UserArticleResultAction(result: result)
                 store.dispatch(action)
                 finishHandler?(store)
             }
@@ -38,7 +54,30 @@ struct QiitaAPIActionCreator {
             
             let request = GetAllArticleEndpoint(queryParameters: ["per_page": PerPage, "page": state.home.pageNumber])
             Session.sendRequest(request) { result in
-                let action = MoreAllArticleResultAction(result)
+                let action = MoreAllArticleResultAction(result: result)
+                store.dispatch(action)
+                finishHandler?(store)
+            }
+            return nil
+            
+        }
+        
+    }
+    
+    static func fetchMoreUserArticleList(userId: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
+        
+        return { state, store in
+            
+            let request = GetUserArticleEndpoint(userId: userId, queryParameters: ["per_page": PerPage, "page": state.userArticleList.pageNumber])
+            Session.sendRequest(request) { result in
+                let action: Action
+                if result.value?.articleModels?.count == 0 {
+                    action = FinishMoreUserArticleAction(finishMoreUserArticle: true)
+                }
+                else {
+                    action = MoreUserArticleResultAction(result: result)
+                }
+                
                 store.dispatch(action)
                 finishHandler?(store)
             }

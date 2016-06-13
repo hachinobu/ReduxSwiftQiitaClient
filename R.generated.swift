@@ -41,7 +41,7 @@ struct R {
     private init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 4 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `ArticleDetailBodyCell`.
     static let articleDetailBodyCell: ReuseIdentifier<ArticleDetailBodyCell> = ReuseIdentifier(identifier: "ArticleDetailBodyCell")
@@ -49,6 +49,8 @@ struct R {
     static let articleDetailTopInfoCell: ReuseIdentifier<ArticleDetailTopInfoCell> = ReuseIdentifier(identifier: "ArticleDetailTopInfoCell")
     /// Reuse identifier `ArticleListCell`.
     static let articleListCell: ReuseIdentifier<ArticleListCell> = ReuseIdentifier(identifier: "ArticleListCell")
+    /// Reuse identifier `UserArticleListCell`.
+    static let userArticleListCell: ReuseIdentifier<ArticleListCell> = ReuseIdentifier(identifier: "UserArticleListCell")
     
     private init() {}
   }
@@ -58,7 +60,7 @@ struct R {
     private init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
   struct storyboard {
     /// Storyboard `ArticleDetail`.
     static let articleDetail = _R.storyboard.articleDetail()
@@ -66,6 +68,8 @@ struct R {
     static let articleList = _R.storyboard.articleList()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
+    /// Storyboard `UserArticleList`.
+    static let userArticleList = _R.storyboard.userArticleList()
     
     /// `UIStoryboard(name: "ArticleDetail", bundle: ...)`
     static func articleDetail(_: Void) -> UIStoryboard {
@@ -80,6 +84,11 @@ struct R {
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void) -> UIStoryboard {
       return UIStoryboard(resource: R.storyboard.launchScreen)
+    }
+    
+    /// `UIStoryboard(name: "UserArticleList", bundle: ...)`
+    static func userArticleList(_: Void) -> UIStoryboard {
+      return UIStoryboard(resource: R.storyboard.userArticleList)
     }
     
     private init() {}
@@ -125,6 +134,15 @@ struct _R {
       
       let bundle = _R.hostingBundle
       let name = "LaunchScreen"
+      
+      private init() {}
+    }
+    
+    struct userArticleList: StoryboardResourceWithInitialControllerType {
+      typealias InitialController = UserArticleListViewController
+      
+      let bundle = _R.hostingBundle
+      let name = "UserArticleList"
       
       private init() {}
     }

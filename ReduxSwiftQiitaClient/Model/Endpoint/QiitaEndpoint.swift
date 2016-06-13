@@ -66,6 +66,17 @@ extension QiitaRequestType where Response == Bool {
     
 }
 
+extension QiitaRequestType where Response == ArticleListModel {
+    
+    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> Response {
+        guard let json = object as? [[String: AnyObject]], responseObject = Mapper<ArticleModel>().mapArray(json) else {
+            throw ResponseError.UnexpectedObject(object)
+        }
+        return ArticleListModel(articleModels: responseObject)
+    }
+    
+}
+
 struct GetAllArticleEndpoint: QiitaRequestType {
     
     typealias Response = ArticleListModel
@@ -82,13 +93,6 @@ struct GetAllArticleEndpoint: QiitaRequestType {
     
     init(queryParameters: [String: AnyObject]?) {
         self.queryParameters = queryParameters
-    }
-    
-    func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> Response {
-        guard let json = object as? [[String: AnyObject]], responseObject = Mapper<ArticleModel>().mapArray(json) else {
-            throw ResponseError.UnexpectedObject(object)
-        }
-        return ArticleListModel(articleModels: responseObject)
     }
     
 }
@@ -159,6 +163,24 @@ struct UpdateArticleStockStatus: QiitaRequestType {
     init(id: String, method: HTTPMethod) {
         path = "/api/v2/items/\(id)/stock"
         self.method = method
+    }
+    
+}
+
+struct GetUserArticleEndpoint: QiitaRequestType {
+    
+    typealias Response = ArticleListModel
+    
+    var method: HTTPMethod {
+        return .GET
+    }
+    
+    var path: String
+    var queryParameters: [String: AnyObject]?
+    
+    init(userId: String, queryParameters: [String: AnyObject]?) {
+        path = "/api/v2/users/\(userId)/items"
+        self.queryParameters = queryParameters
     }
     
 }

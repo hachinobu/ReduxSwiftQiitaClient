@@ -23,6 +23,10 @@
 		C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */; };
 		C245AC291D0E3E2F00A2F232 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC281D0E3E2F00A2F232 /* LoadingState.swift */; };
 		C245AC2B1D0E3EFC00A2F232 /* LoadingStateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */; };
+		C245AC2D1D0E49B000A2F232 /* UserArticleListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC2C1D0E49B000A2F232 /* UserArticleListState.swift */; };
+		C245AC2F1D0E4EB400A2F232 /* UserArticleList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */; };
+		C245AC311D0E6E2B00A2F232 /* UserArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */; };
+		C245AC331D0E936900A2F232 /* UserArticleListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC321D0E936900A2F232 /* UserArticleListReducer.swift */; };
 		C24C81A81CF5C38500924574 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A71CF5C38500924574 /* AppState.swift */; };
 		C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A91CF5C51400924574 /* HomeState.swift */; };
 		C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AC1CF5C5B800924574 /* ArticleVM.swift */; };
@@ -83,6 +87,10 @@
 		C21A8B731CF47C5700EB487C /* QiitaEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaEndpoint.swift; sourceTree = "<group>"; };
 		C245AC281D0E3E2F00A2F232 /* LoadingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 		C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingStateReducer.swift; sourceTree = "<group>"; };
+		C245AC2C1D0E49B000A2F232 /* UserArticleListState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListState.swift; sourceTree = "<group>"; };
+		C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserArticleList.storyboard; sourceTree = "<group>"; };
+		C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListViewController.swift; sourceTree = "<group>"; };
+		C245AC321D0E936900A2F232 /* UserArticleListReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListReducer.swift; sourceTree = "<group>"; };
 		C24C81A71CF5C38500924574 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C24C81A91CF5C51400924574 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		C24C81AC1CF5C5B800924574 /* ArticleVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleVM.swift; sourceTree = "<group>"; };
@@ -218,6 +226,7 @@
 			children = (
 				C21A8B601CF46EA400EB487C /* ArticleList.storyboard */,
 				C2E169BD1CFF0634009F1459 /* ArticleDetail.storyboard */,
+				C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -237,6 +246,7 @@
 			children = (
 				C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */,
 				C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */,
+				C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -286,6 +296,7 @@
 				C24C81A91CF5C51400924574 /* HomeState.swift */,
 				C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */,
 				C245AC281D0E3E2F00A2F232 /* LoadingState.swift */,
+				C245AC2C1D0E49B000A2F232 /* UserArticleListState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -304,6 +315,7 @@
 				C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */,
 				C2E169BB1CFF01EF009F1459 /* ArticleDetailReducer.swift */,
 				C245AC2A1D0E3EFC00A2F232 /* LoadingStateReducer.swift */,
+				C245AC321D0E936900A2F232 /* UserArticleListReducer.swift */,
 			);
 			path = Reducer;
 			sourceTree = "<group>";
@@ -441,6 +453,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C245AC2F1D0E4EB400A2F232 /* UserArticleList.storyboard in Resources */,
 				C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */,
 				C2BC2EC51D02FC4F005B920F /* Secrets.plist in Resources */,
 				C2E169BE1CFF0634009F1459 /* ArticleDetail.storyboard in Resources */,
@@ -543,12 +556,15 @@
 				C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */,
 				C2E169C21CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift in Sources */,
 				C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */,
+				C245AC311D0E6E2B00A2F232 /* UserArticleListViewController.swift in Sources */,
 				C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */,
 				C245AC2B1D0E3EFC00A2F232 /* LoadingStateReducer.swift in Sources */,
 				C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */,
 				C2E169C01CFF0C46009F1459 /* ArticleDetailTableViewController.swift in Sources */,
 				C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */,
+				C245AC2D1D0E49B000A2F232 /* UserArticleListState.swift in Sources */,
 				C27096921CFAC6CB008E3273 /* QiitaAPIActions.swift in Sources */,
+				C245AC331D0E936900A2F232 /* UserArticleListReducer.swift in Sources */,
 				C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */,
 				C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */,
 				C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */,

@@ -13,6 +13,7 @@ class ArticleDetailTableViewController: UITableViewController {
 
     private var articleDetailState = ArticleDetailState() {
         didSet {
+            
             fetchStockStatus()
             tableView.reloadData()
         }
@@ -46,6 +47,9 @@ class ArticleDetailTableViewController: UITableViewController {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleDetailTopInfoCell, forIndexPath: indexPath)!
             cell.articleInfo = articleDetailState.fetchArticleDetailTopInfo()
+            cell.selectedUserAction = { [weak self] userId in
+                self?.segueUserArticleList(userId)
+            }
             return cell
         }
         
@@ -76,6 +80,12 @@ class ArticleDetailTableViewController: UITableViewController {
             self?.tableView.reloadData()
         }
         mainStore.dispatch(actionCreator)
+    }
+    
+    private func segueUserArticleList(userId: String) {
+        mainStore.dispatch(ArticleListUserIdAction(userId: userId))
+        let vc = R.storyboard.userArticleList.initialViewController()!
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }

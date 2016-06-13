@@ -1,26 +1,24 @@
 //
-//  ArticleListTableViewController.swift
+//  UserArticleListViewController.swift
 //  ReduxSwiftQiitaClient
 //
-//  Created by Nishinobu.Takahiro on 2016/05/24.
+//  Created by Nishinobu.Takahiro on 2016/06/13.
 //  Copyright © 2016年 hachinobu. All rights reserved.
 //
 
 import UIKit
-import APIKit
 import ReSwift
 import Kingfisher
 
 private extension Selector {
-    static let pullToRefresh = #selector(ArticleListTableViewController.refreshData)
+    static let pullToRefresh = #selector(UserArticleListViewController.refreshData)
 }
 
-class ArticleListTableViewController: UITableViewController {
+class UserArticleListViewController: UITableViewController {
 
-    private var homeState = HomeState() {
+    var userArticleListState = UserArticleListState() {
         didSet {
-            
-            if homeState.hasError() {
+            if userArticleListState.hasError() {
                 showErrorDialog()
                 return
             }
@@ -39,56 +37,46 @@ class ArticleListTableViewController: UITableViewController {
         setupUI()
         refreshData()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     private func setupUI() {
-        title = "ホーム"
+        title = "投稿一覧"
         tableView.addSubview(refreshUI)
         refreshUI.addTarget(self, action: .pullToRefresh, forControlEvents: .ValueChanged)
     }
     
     func refreshData() {
-        mainStore.dispatch(RefreshAction(isRefresh: true))
+        mainStore.dispatch(UserArticleListRefreshAction(isRefresh: true))
         mainStore.dispatch(LoadingAction(isLoading: true))
-        let actionCreator = QiitaAPIActionCreator.fetchAllArticleList { [unowned self] store in
-            let refreshAction = RefreshAction(isRefresh: false, articleVMList: self.homeState.articleVMList, pageNumber: self.homeState.pageNumber)
+        let actionCreator = QiitaAPIActionCreator.fetchUserAllArticleList(userArticleListState.userId) { [unowned self] store in
+            let refreshAction = UserArticleListRefreshAction(isRefresh: false, articleVMList: self.userArticleListState.articleVMList, pageNumber: self.userArticleListState.pageNumber)
             store.dispatch(refreshAction)
             store.dispatch(LoadingAction(isLoading: false))
         }
         mainStore.dispatch(actionCreator)
     }
-    
-    // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
 
+    // MARK: - Table view data source
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeState.fetchArticleListCount()
+        return userArticleListState.fetchArticleListCount()
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleListCell, forIndexPath: indexPath)!
-        let viewModel = homeState.fetchArticleVM(indexPath.row)
-        cell.updateCell(viewModel)
-        
+        let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.userArticleListCell, forIndexPath: indexPath)!
+        cell.updateCell(userArticleListState.fetchArticleVM(indexPath.row))
         return cell
     }
-    
+
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        guard indexPath.row == homeState.fetchArticleListEndIndex() && !homeState.showMoreLoading else { return }
+        guard indexPath.row == userArticleListState.fetchArticleListEndIndex() && !userArticleListState.showMoreLoading && !userArticleListState.finishMoreUserArticle else { return }
         
-        mainStore.dispatch(ShowMoreLoadingAction(showMoreLoading: true))
-        let actionCreator = QiitaAPIActionCreator.fetchMoreArticleList { store in
-            store.dispatch(ShowMoreLoadingAction(showMoreLoading: false))
-        }
+        mainStore.dispatch(UserArticleListShowMoreLoadingAction(showMoreLoading: true))
+        let actionCreator = QiitaAPIActionCreator.fetchMoreUserArticleList(userArticleListState.userId, finishHandler: { store in
+            store.dispatch(UserArticleListShowMoreLoadingAction(showMoreLoading: false))
+        })
         mainStore.dispatch(actionCreator)
     }
     
@@ -102,49 +90,48 @@ class ArticleListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let articleVM = homeState.fetchArticleVM(indexPath.row)
+        let articleVM = userArticleListState.fetchArticleVM(indexPath.row)
         let action = ArticleDetailIdAction(articleId: articleVM.fetchId())
         mainStore.dispatch(action)
         let vc = R.storyboard.articleDetail.initialViewController()!
         navigationController?.pushViewController(vc, animated: true)
     }
-    
+
 }
 
 //MARK: StoreSubscriber
-extension ArticleListTableViewController: StoreSubscriber {
+extension UserArticleListViewController: StoreSubscriber {
     
     func newState(state: AppState) {
-        homeState = state.home
+        userArticleListState = state.userArticleList
     }
     
 }
 
 //MARK: Stateが更新された時に呼ばれる処理
-extension ArticleListTableViewController {
+extension UserArticleListViewController {
     
     private func showErrorDialog() {
-        let alert = UIAlertController(title: "エラー", message: homeState.fetchErrorMessage(), preferredStyle: .Alert)
+        let alert = UIAlertController(title: "エラー", message: userArticleListState.fetchErrorMessage(), preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
     
     private func expireCache() {
-        guard homeState.isRefresh && homeState.fetchArticleListCount() == 0 else { return }
+        guard userArticleListState.isRefresh && userArticleListState.fetchArticleListCount() == 0 else { return }
         KingfisherManager.sharedManager.cache.clearMemoryCache()
         KingfisherManager.sharedManager.cache.clearDiskCache()
     }
     
     private func updateMoreLoadingIndicator() {
-        moreLoadingFooterView.updateIndicatorView(homeState.showMoreLoading)
+        moreLoadingFooterView.updateIndicatorView(userArticleListState.showMoreLoading)
     }
     
     private func reloadView() {
-        guard homeState.fetchArticleListCount() > 0 else { return }
-        if homeState.showMoreLoading || homeState.isRefresh { return }
+        guard userArticleListState.fetchArticleListCount() > 0 else { return }
+        if userArticleListState.showMoreLoading || userArticleListState.isRefresh { return }
         tableView.reloadData()
         refreshUI.endRefreshing()
     }
     
 }
-

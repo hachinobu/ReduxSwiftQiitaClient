@@ -11,6 +11,7 @@ import Kingfisher
 
 private extension Selector {
     static let stockButtonTapped = #selector(ArticleDetailTopInfoCell.stockButtonAction)
+    static let userNameTapped = #selector(ArticleDetailTopInfoCell.tappedUserName)
 }
 
 class ArticleDetailTopInfoCell: UITableViewCell {
@@ -27,11 +28,13 @@ class ArticleDetailTopInfoCell: UITableViewCell {
             updateCell()
         }
     }
+    var selectedUserAction: ((userId: String) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         stockButton.layer.cornerRadius = 4.0
         stockButton.addTarget(self, action: .stockButtonTapped, forControlEvents: .TouchUpInside)
+        userNameButton.addTarget(self, action: .userNameTapped, forControlEvents: .TouchUpInside)
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -42,6 +45,11 @@ class ArticleDetailTopInfoCell: UITableViewCell {
         guard let articleInfo = articleInfo else { return }
         let isStock = !articleInfo.stockStatus.isStock
         mainStore.dispatch(QiitaAPIActionCreator.updateStockStatus(articleInfo.articleDetail.fetchId(), toStock: isStock, finishHandler: nil))
+    }
+    
+    func tappedUserName() {
+        guard let userId = articleInfo?.articleDetail.fetchUserId() else { return }
+        selectedUserAction?(userId: userId)
     }
     
     private func updateCell() {

@@ -21,7 +21,21 @@ struct RefreshAction: Action {
     let articleVMList: [ArticleVM]?
     let pageNumber: Int
     
-    init(_ isRefresh: Bool, articleVMList: [ArticleVM]? = [], pageNumber: Int = 1) {
+    init(isRefresh: Bool, articleVMList: [ArticleVM]? = [], pageNumber: Int = 1) {
+        self.isRefresh = isRefresh
+        self.articleVMList = articleVMList
+        self.pageNumber = pageNumber
+    }
+    
+}
+
+struct UserArticleListRefreshAction: Action {
+    
+    let isRefresh: Bool
+    let articleVMList: [ArticleVM]?
+    let pageNumber: Int
+    
+    init(isRefresh: Bool, articleVMList: [ArticleVM]? = [], pageNumber: Int = 1) {
         self.isRefresh = isRefresh
         self.articleVMList = articleVMList
         self.pageNumber = pageNumber
@@ -30,37 +44,35 @@ struct RefreshAction: Action {
 }
 
 struct AllArticleResultAction: Action {
-    
     let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
-    
-    init(_ result: Result<GetAllArticleEndpoint.Response, SessionTaskError>) {
-        self.result = result
-    }
-    
+}
+
+struct UserArticleResultAction: Action {
+    let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
 }
 
 struct ShowMoreLoadingAction: Action {
-    
     let showMoreLoading: Bool
-    
-    init(_ showMoreLoading: Bool) {
-        self.showMoreLoading = showMoreLoading
-    }
-    
+}
+
+struct UserArticleListShowMoreLoadingAction: Action {
+    let showMoreLoading: Bool
 }
 
 struct MoreAllArticleResultAction: Action {
-    
     let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
-    
-    init(_ result: Result<GetAllArticleEndpoint.Response, SessionTaskError>) {
-        self.result = result
-    }
-    
+}
+
+struct MoreUserArticleResultAction: Action {
+    let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
 }
 
 struct ArticleDetailIdAction: Action {
     let articleId: String
+}
+
+struct ArticleListUserIdAction: Action {
+    let userId: String
 }
 
 struct ArticleDetailAction: Action {
@@ -87,5 +99,6 @@ struct IsUserArticleListAction: Action {
     let isUserArticleList: Bool
 }
 
-
-
+struct FinishMoreUserArticleAction: Action {
+    let finishMoreUserArticle: Bool
+}
