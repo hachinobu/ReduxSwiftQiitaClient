@@ -27,6 +27,8 @@
 		C245AC2F1D0E4EB400A2F232 /* UserArticleList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */; };
 		C245AC311D0E6E2B00A2F232 /* UserArticleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */; };
 		C245AC331D0E936900A2F232 /* UserArticleListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC321D0E936900A2F232 /* UserArticleListReducer.swift */; };
+		C245AC381D0FA33D00A2F232 /* ArticleListScreenStateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC371D0FA33D00A2F232 /* ArticleListScreenStateProtocol.swift */; };
+		C245AC3A1D0FB9B300A2F232 /* UserArticleListScreenStateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C245AC391D0FB9B300A2F232 /* UserArticleListScreenStateProtocol.swift */; };
 		C24C81A81CF5C38500924574 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A71CF5C38500924574 /* AppState.swift */; };
 		C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A91CF5C51400924574 /* HomeState.swift */; };
 		C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AC1CF5C5B800924574 /* ArticleVM.swift */; };
@@ -91,6 +93,8 @@
 		C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserArticleList.storyboard; sourceTree = "<group>"; };
 		C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListViewController.swift; sourceTree = "<group>"; };
 		C245AC321D0E936900A2F232 /* UserArticleListReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListReducer.swift; sourceTree = "<group>"; };
+		C245AC371D0FA33D00A2F232 /* ArticleListScreenStateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListScreenStateProtocol.swift; sourceTree = "<group>"; };
+		C245AC391D0FB9B300A2F232 /* UserArticleListScreenStateProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListScreenStateProtocol.swift; sourceTree = "<group>"; };
 		C24C81A71CF5C38500924574 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C24C81A91CF5C51400924574 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		C24C81AC1CF5C5B800924574 /* ArticleVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleVM.swift; sourceTree = "<group>"; };
@@ -281,6 +285,15 @@
 			path = Endpoint;
 			sourceTree = "<group>";
 		};
+		C245AC361D0FA32700A2F232 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C245AC371D0FA33D00A2F232 /* ArticleListScreenStateProtocol.swift */,
+				C245AC391D0FB9B300A2F232 /* UserArticleListScreenStateProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		C24C81841CF5475D00924574 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +305,7 @@
 		C24C81A61CF5C36800924574 /* State */ = {
 			isa = PBXGroup;
 			children = (
+				C245AC361D0FA32700A2F232 /* Protocol */,
 				C24C81A71CF5C38500924574 /* AppState.swift */,
 				C24C81A91CF5C51400924574 /* HomeState.swift */,
 				C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */,
@@ -558,6 +572,7 @@
 				C21A8B711CF47AB200EB487C /* ArticleListModel.swift in Sources */,
 				C245AC311D0E6E2B00A2F232 /* UserArticleListViewController.swift in Sources */,
 				C24C81AD1CF5C5B800924574 /* ArticleVM.swift in Sources */,
+				C245AC381D0FA33D00A2F232 /* ArticleListScreenStateProtocol.swift in Sources */,
 				C245AC2B1D0E3EFC00A2F232 /* LoadingStateReducer.swift in Sources */,
 				C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */,
 				C2E169C01CFF0C46009F1459 /* ArticleDetailTableViewController.swift in Sources */,
@@ -568,6 +583,7 @@
 				C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */,
 				C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */,
 				C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */,
+				C245AC3A1D0FB9B300A2F232 /* UserArticleListScreenStateProtocol.swift in Sources */,
 				C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */,
 				C2E169BC1CFF01EF009F1459 /* ArticleDetailReducer.swift in Sources */,
 				C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */,

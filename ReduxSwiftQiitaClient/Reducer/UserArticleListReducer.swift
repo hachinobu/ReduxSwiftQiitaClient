@@ -56,7 +56,7 @@ extension UserArticleListReducer: Reducer {
             userArticleListState.updateShowMoreLoading(action.showMoreLoading)
             
         case let action as FinishMoreUserArticleAction:
-            userArticleListState.updateFinishMoreArticle(action.finishMoreUserArticle)
+            userArticleListState.updateFinishMoreUserArticle(action.finishMoreUserArticle)
             
         case let action as ResetUserArticleStateAction:
             userArticleListState.updateUserId(action.userId)
@@ -65,7 +65,7 @@ extension UserArticleListReducer: Reducer {
             userArticleListState.updateErrorMessage(nil)
             userArticleListState.updateIsRefresh(action.isRefresh)
             userArticleListState.updateShowMoreLoading(action.showMoreLoading)
-            userArticleListState.updateFinishMoreArticle(action.finishMoreUserArticle)
+            userArticleListState.updateFinishMoreUserArticle(action.finishMoreUserArticle)
             
         default:
             break
