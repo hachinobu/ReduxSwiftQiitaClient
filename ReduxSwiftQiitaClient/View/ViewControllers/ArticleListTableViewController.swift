@@ -15,19 +15,10 @@ private extension Selector {
     static let pullToRefresh = #selector(ArticleListTableViewController.refreshData)
 }
 
-class ArticleListTableViewController: UITableViewController {
+class ArticleListTableViewController: UITableViewController, NavigationBarProtocol {
 
-    private var homeState = HomeState() {
-        didSet {
-            
-            if homeState.hasError() {
-                showErrorDialog()
-                return
-            }
-            expireCache()
-            updateMoreLoadingIndicator()
-            reloadView()
-        }
+    private var homeState: HomeState {
+        return mainStore.state.home
     }
     
     @IBOutlet weak var moreLoadingFooterView: MoreLoadingFooterView!
@@ -35,13 +26,18 @@ class ArticleListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainStore.subscribe(self)
         setupUI()
-        refreshData()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        mainStore.subscribe(self)
+        refreshData()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        mainStore.unsubscribe(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,18 +46,29 @@ class ArticleListTableViewController: UITableViewController {
     
     private func setupUI() {
         title = "ホーム"
+        setupBackBarButton()
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         tableView.addSubview(refreshUI)
         refreshUI.addTarget(self, action: .pullToRefresh, forControlEvents: .ValueChanged)
     }
     
     func refreshData() {
-        mainStore.dispatch(RefreshAction(isRefresh: true))
-        mainStore.dispatch(LoadingAction(isLoading: true))
-        let actionCreator = QiitaAPIActionCreator.fetchAllArticleList { [unowned self] store in
-            let refreshAction = RefreshAction(isRefresh: false, articleVMList: self.homeState.articleVMList, pageNumber: self.homeState.pageNumber)
-            store.dispatch(refreshAction)
-            store.dispatch(LoadingAction(isLoading: false))
+        
+        mainStore.dispatch(LoadingState.LoadingAction(isLoading: true))
+        let refreshStartAction = HomeState.HomeRefreshAction(isRefresh: true, pageNumber: 1)
+        mainStore.dispatch(refreshStartAction)
+        
+        let actionCreator = QiitaAPIActionCreator.call(generateAllArticleRequest()) { [weak self] result in
+            
+            let pageNumber = self?.homeState.pageNumber ?? 1
+            let refreshEndAction = HomeState.HomeRefreshAction(isRefresh: false, pageNumber: pageNumber)
+            mainStore.dispatch(refreshEndAction)
+            mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
+            
+            let action = HomeState.HomeArticleResultAction(result: result)
+            mainStore.dispatch(action)
         }
+        
         mainStore.dispatch(actionCreator)
     }
     
@@ -76,8 +83,8 @@ class ArticleListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleListCell, forIndexPath: indexPath)!
-        let viewModel = homeState.fetchArticleVM(indexPath.row)
-        cell.updateCell(viewModel)
+        let article = homeState.fetchArticle(indexPath.row)
+        cell.updateCell(article)
         
         return cell
     }
@@ -85,9 +92,11 @@ class ArticleListTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         guard indexPath.row == homeState.fetchArticleListEndIndex() && !homeState.showMoreLoading else { return }
         
-        mainStore.dispatch(ShowMoreLoadingAction(showMoreLoading: true))
-        let actionCreator = QiitaAPIActionCreator.fetchMoreArticleList { store in
-            store.dispatch(ShowMoreLoadingAction(showMoreLoading: false))
+        mainStore.dispatch(HomeState.HomeShowMoreLoadingAction(showMoreLoading: true))
+        let actionCreator = QiitaAPIActionCreator.call(generateAllArticleRequest()) { result in
+            let action = HomeState.HomeMoreArticleResultAction(result: result)
+            mainStore.dispatch(action)
+            mainStore.dispatch(HomeState.HomeShowMoreLoadingAction(showMoreLoading: false))
         }
         mainStore.dispatch(actionCreator)
     }
@@ -102,11 +111,24 @@ class ArticleListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let articleVM = homeState.fetchArticleVM(indexPath.row)
-        let action = ArticleDetailIdAction(articleId: articleVM.fetchId())
+        let article = homeState.fetchArticle(indexPath.row)
+        let action = ArticleDetailState.ArticleDetailIdAction(articleId: article.fetchId())
         mainStore.dispatch(action)
         let vc = R.storyboard.articleDetail.initialViewController()!
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+}
+
+extension ArticleListTableViewController {
+    
+    private func expireCache() {
+        KingfisherManager.sharedManager.cache.clearMemoryCache()
+        KingfisherManager.sharedManager.cache.clearDiskCache()
+    }
+    
+    private func generateAllArticleRequest() -> GetAllArticleEndpoint {
+        return GetAllArticleEndpoint(queryParameters: ["per_page": 20, "page": homeState.pageNumber])
     }
     
 }
@@ -115,12 +137,22 @@ class ArticleListTableViewController: UITableViewController {
 extension ArticleListTableViewController: StoreSubscriber {
     
     func newState(state: AppState) {
-        homeState = state.home
+        
+        if homeState.hasError() {
+            showErrorDialog()
+            return
+        }
+        
+        if homeState.isRefresh && homeState.pageNumber == 1 {
+            expireCache()
+        }
+        
+        reloadView()
     }
     
 }
 
-//MARK: Stateが更新された時に呼ばれる処理
+//MARK: Stateが更新された時に呼ばれるView処理
 extension ArticleListTableViewController {
     
     private func showErrorDialog() {
@@ -129,17 +161,12 @@ extension ArticleListTableViewController {
         navigationController?.presentViewController(alert, animated: true, completion: nil)
     }
     
-    private func expireCache() {
-        guard homeState.isRefresh && homeState.fetchArticleListCount() == 0 else { return }
-        KingfisherManager.sharedManager.cache.clearMemoryCache()
-        KingfisherManager.sharedManager.cache.clearDiskCache()
-    }
-    
     private func updateMoreLoadingIndicator() {
         moreLoadingFooterView.updateIndicatorView(homeState.showMoreLoading)
     }
     
     private func reloadView() {
+        updateMoreLoadingIndicator()
         guard homeState.fetchArticleListCount() > 0 else { return }
         if homeState.showMoreLoading || homeState.isRefresh { return }
         tableView.reloadData()

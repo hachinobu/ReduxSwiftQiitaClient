@@ -9,9 +9,7 @@
 import Foundation
 import ReSwift
 
-
 struct LoadingStateReducer {
-    
 }
 
 extension LoadingStateReducer: Reducer {
@@ -23,7 +21,7 @@ extension LoadingStateReducer: Reducer {
         var loadingState = newState.loading
         
         switch action {
-        case let action as LoadingAction:
+        case let action as LoadingState.LoadingAction:
             loadingState.updateIsLoading(action.isLoading)
         default:
             break

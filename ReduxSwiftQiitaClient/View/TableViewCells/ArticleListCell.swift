@@ -24,13 +24,13 @@ class ArticleListCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func updateCell(viewModel: ArticleVM) {
-        postedInfoLabel.text = viewModel.fetchPostedInfo()
-        titleLabel.text = viewModel.fetchArticleTitle()
-        tagLabel.text = viewModel.fetchTags()
+    func updateCell(article: ArticleModel) {
+        postedInfoLabel.text = article.fetchPostedInfo()
+        titleLabel.text = article.fetchArticleTitle()
+        tagLabel.text = article.fetchTags()
         
-        guard let downloadURL = viewModel.fetchDownloadURL() else { return }
-        let resource = Resource(downloadURL: downloadURL, cacheKey: viewModel.fetchId())
+        guard let downloadURL = article.fetchDownloadURL() else { return }
+        let resource = Resource(downloadURL: downloadURL, cacheKey: article.fetchId())
         downloadProfileImage(resource)
     }
     

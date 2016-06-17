@@ -11,7 +11,7 @@ import Foundation
 struct HomeState: ArticleListScreenStateProtocol {
     
     var pageNumber: Int = 1
-    var articleVMList: [ArticleVM]?
+    var articleList: [ArticleModel]?
     var errorMessage: String?
     var isRefresh: Bool = false
     var showMoreLoading: Bool = false

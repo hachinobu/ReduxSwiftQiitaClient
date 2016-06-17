@@ -1,8 +1,8 @@
 //
-//  ArticleDetailTableViewController.swift
+//  UserArticleDetailTableViewController.swift
 //  ReduxSwiftQiitaClient
 //
-//  Created by Nishinobu.Takahiro on 2016/06/01.
+//  Created by Nishinobu.Takahiro on 2016/06/16.
 //  Copyright © 2016年 hachinobu. All rights reserved.
 //
 
@@ -10,10 +10,10 @@ import UIKit
 import ReSwift
 import APIKit
 
-class ArticleDetailTableViewController: UITableViewController, NavigationBarProtocol {
+class UserArticleDetailTableViewController: UITableViewController, NavigationBarProtocol {
 
-    private var articleDetailState: ArticleDetailState {
-        return mainStore.state.articleDetail
+    private var userArticleDetailState: ArticleDetailState {
+        return mainStore.state.userArticleDetail
     }
     
     private var webViewHeight: CGFloat = 0.0
@@ -23,7 +23,7 @@ class ArticleDetailTableViewController: UITableViewController, NavigationBarProt
         title = "詳細"
         setupBackBarButton()
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         mainStore.subscribe(self)
@@ -34,31 +34,28 @@ class ArticleDetailTableViewController: UITableViewController, NavigationBarProt
         super.viewDidDisappear(animated)
         mainStore.unsubscribe(self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     deinit {
-        mainStore.dispatch(ArticleDetailState.ArticleDetailResetAction())
+        mainStore.dispatch(ArticleDetailState.UserArticleDetailResetAction())
     }
     
     // MARK: - Table view data source
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return articleDetailState.fetchTableSectionCount()
+        return userArticleDetailState.fetchTableSectionCount()
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return articleDetailState.fetchTableSectionRowCount()
+        return userArticleDetailState.fetchTableSectionRowCount()
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleDetailTopInfoCell, forIndexPath: indexPath)!
-            cell.articleInfo = articleDetailState.fetchArticleDetailTopInfo()
-            cell.selectedUserAction = { [weak self] userId in
-                self?.segueUserArticleList(userId)
-            }
+            let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.userArticleDetailTopInfoCell, forIndexPath: indexPath)!
+            cell.articleInfo = userArticleDetailState.fetchArticleDetailTopInfo()
             cell.updateStockButtonAction = { [weak self] in
                 self?.updateStockStatus()
             }
@@ -67,8 +64,9 @@ class ArticleDetailTableViewController: UITableViewController, NavigationBarProt
         
         let cell = tableView.dequeueReusableCellWithIdentifier(R.reuseIdentifier.articleDetailBodyCell, forIndexPath: indexPath)!
         cell.htmlWebView.delegate = self
-        cell.loadRenderHtmlBody(articleDetailState.fetchHtmlBody())
+        cell.loadRenderHtmlBody(userArticleDetailState.fetchHtmlBody())
         return cell
+        
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -83,23 +81,29 @@ class ArticleDetailTableViewController: UITableViewController, NavigationBarProt
         return row == 0 ? UITableViewAutomaticDimension : webViewHeight
     }
     
-    private func segueUserArticleList(userId: String) {
-        mainStore.dispatch(UserArticleListState.UserArticleListUserIdAction(userId: userId))
-        let vc = R.storyboard.userArticleList.initialViewController()!
-        navigationController?.pushViewController(vc, animated: true)
-    }
-
 }
 
-extension ArticleDetailTableViewController {
+//MARK: StoreSubscriber
+extension UserArticleDetailTableViewController: StoreSubscriber {
+    
+    func newState(state: AppState) {
+        guard userArticleDetailState.isReloadView() else {
+            return
+        }
+        tableView.reloadData()
+    }
+    
+}
+
+extension UserArticleDetailTableViewController {
     
     private func fetchArticleDetail() {
         
         mainStore.dispatch(LoadingState.LoadingAction(isLoading: true))
-        let tasks = QiitaAPIActionCreator.fetchArticleDetailInfoActionTasks(articleDetailState.articleId, actionType: .DetailFromAllList)
+        let tasks = QiitaAPIActionCreator.fetchArticleDetailInfoActionTasks(userArticleDetailState.articleId, actionType: .DetailFromUserList)
         let actionCreator = QiitaAPIActionCreator.call(tasks) { [weak self] result in
             guard let actions = result.value else {
-                let action = ArticleDetailState.ArticleDetailErrorAction(error: result.error!)
+                let action = ArticleDetailState.UserArticleDetailErrorAction(error: result.error!)
                 mainStore.dispatch(action)
                 return
             }
@@ -113,17 +117,20 @@ extension ArticleDetailTableViewController {
     
     private func fetchStockStatus() {
         
+        guard userArticleDetailState.hasArticleDetailData() else { return }
+        if userArticleDetailState.hasStockStatus() || userArticleDetailState.fetchingStockStatus { return }
+        
+        mainStore.dispatch(ArticleDetailState.UserArticleDetailFetchingStockStatusAction(fetchingStockStatus: true))
         mainStore.dispatch(LoadingState.LoadingAction(isLoading: true))
-        mainStore.dispatch(ArticleDetailState.ArticleDetailFetchingStockStatusAction(fetchingStockStatus: true))
-        let actionCreator = QiitaAPIActionCreator.call(GetArticleStockStatus(id: articleDetailState.articleId)) { result in
-            
-            mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
-            mainStore.dispatch(ArticleDetailState.ArticleDetailFetchingStockStatusAction(fetchingStockStatus: false))
-            let hasStock = result.value != nil
-            let action = ArticleDetailState.ArticleDetailHasStockAction(hasStock: hasStock)
+        let actionCreator = QiitaAPIActionCreator.call(GetArticleStockStatus(id: userArticleDetailState.articleId)) { result in
+            let hasStock: Bool = result.value != nil
+            let action = ArticleDetailState.UserArticleDetailHasStockAction(hasStock: hasStock)
             mainStore.dispatch(action)
             
+            mainStore.dispatch(ArticleDetailState.UserArticleDetailFetchingStockStatusAction(fetchingStockStatus: false))
+            mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
         }
+        
         mainStore.dispatch(actionCreator)
         
     }
@@ -134,8 +141,8 @@ extension ArticleDetailTableViewController {
         let actionCreator = QiitaAPIActionCreator.call(generateUpdateStockRequest()) { [weak self] result in
             mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
             guard let weakSelf = self else { return }
-            let isStock = result.value != nil ? !weakSelf.articleDetailState.hasStock() : weakSelf.articleDetailState.hasStock()
-            let action = ArticleDetailState.ArticleDetailHasStockAction(hasStock: isStock)
+            let isStock = result.value != nil ? !weakSelf.userArticleDetailState.hasStock() : weakSelf.userArticleDetailState.hasStock()
+            let action = ArticleDetailState.UserArticleDetailHasStockAction(hasStock: isStock)
             mainStore.dispatch(action)
         }
         mainStore.dispatch(actionCreator)
@@ -143,27 +150,14 @@ extension ArticleDetailTableViewController {
     }
     
     private func generateUpdateStockRequest() -> UpdateArticleStockStatus {
-        let isStock = !articleDetailState.hasStock()
+        let isStock = !userArticleDetailState.hasStock()
         let method: HTTPMethod = isStock ? .PUT : .DELETE
-        return UpdateArticleStockStatus(id: articleDetailState.articleId, method: method)
+        return UpdateArticleStockStatus(id: userArticleDetailState.articleId, method: method)
     }
     
 }
 
-//MARK: StoreSubscriber
-extension ArticleDetailTableViewController: StoreSubscriber {
-    
-    func newState(state: AppState) {
-        guard articleDetailState.isReloadView() else {
-            return
-        }
-        tableView.reloadData()
-    }
-    
-}
-
-//MARK: UIWebViewDelegate
-extension ArticleDetailTableViewController: UIWebViewDelegate {
+extension UserArticleDetailTableViewController: UIWebViewDelegate {
     
     func webViewDidFinishLoad(webView: UIWebView) {
         
@@ -177,5 +171,3 @@ extension ArticleDetailTableViewController: UIWebViewDelegate {
     }
     
 }
-
-

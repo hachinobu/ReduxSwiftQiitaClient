@@ -10,7 +10,6 @@ import Foundation
 import ReSwift
 
 struct UserArticleListReducer {
-    
 }
 
 extension UserArticleListReducer: Reducer {
@@ -22,19 +21,17 @@ extension UserArticleListReducer: Reducer {
         var userArticleListState = newState.userArticleList
         
         switch action {
-        case let action as ArticleListUserIdAction:
+        case let action as  UserArticleListState.UserArticleListUserIdAction:
             userArticleListState.updateUserId(action.userId)
             
-        case let action as UserArticleListRefreshAction:
+        case let action as UserArticleListState.UserArticleListRefreshAction:
             userArticleListState.updateIsRefresh(action.isRefresh)
-            userArticleListState.updateArticleVMList(action.articleVMList)
             userArticleListState.updatePageNumber(action.pageNumber)
             
-        case let action as UserArticleResultAction:
+        case let action as UserArticleListState.UserArticleResultAction:
             switch action.result {
             case .Success(let articleList):
-                let articleVMList = generateArticleVMList(articleList)
-                userArticleListState.updateArticleVMList(articleVMList)
+                userArticleListState.updateArticleList(articleList.articleModels)
                 userArticleListState.updateErrorMessage(nil)
                 
             case .Failure(let error):
@@ -46,23 +43,22 @@ extension UserArticleListReducer: Reducer {
                 }
             }
             
-        case let action as MoreUserArticleResultAction:
+        case let action as UserArticleListState.UserMoreArticleResultAction:
             if let moreArticleList = action.result.value {
-                let articleVMList = generateArticleVMList(moreArticleList)
-                userArticleListState.appendArticleVMList(articleVMList)
+                userArticleListState.appendArticleList(moreArticleList.articleModels)
             }
             
-        case let action as UserArticleListShowMoreLoadingAction:
+        case let action as UserArticleListState.UserArticleListShowMoreLoadingAction:
             userArticleListState.updateShowMoreLoading(action.showMoreLoading)
             
-        case let action as FinishMoreUserArticleAction:
+        case let action as UserArticleListState.UserFinishMoreArticleAction:
             userArticleListState.updateFinishMoreUserArticle(action.finishMoreUserArticle)
             
-        case let action as ResetUserArticleStateAction:
+        case let action as UserArticleListState.UserResetArticleStateAction:
             userArticleListState.updateUserId(action.userId)
             userArticleListState.updatePageNumber(action.pageNumber)
-            userArticleListState.updateArticleVMList(action.articleVMList)
-            userArticleListState.updateErrorMessage(nil)
+            userArticleListState.updateArticleList(action.articleList)
+            userArticleListState.updateErrorMessage(action.errorMessage)
             userArticleListState.updateIsRefresh(action.isRefresh)
             userArticleListState.updateShowMoreLoading(action.showMoreLoading)
             userArticleListState.updateFinishMoreUserArticle(action.finishMoreUserArticle)

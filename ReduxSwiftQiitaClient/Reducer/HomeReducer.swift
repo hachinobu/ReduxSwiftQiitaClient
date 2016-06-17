@@ -20,16 +20,14 @@ extension HomeReducer: Reducer {
         var homeState = newState.home
         
         switch action {
-        case let action as RefreshAction:
+        case let action as HomeState.HomeRefreshAction:
             homeState.updateIsRefresh(action.isRefresh)
-            homeState.updateArticleVMList(action.articleVMList)
             homeState.updatePageNumber(action.pageNumber)
             
-        case let action as AllArticleResultAction:
+        case let action as HomeState.HomeArticleResultAction:
             switch action.result {
             case .Success(let articleList):
-                let articleVMList = generateArticleVMList(articleList)
-                homeState.updateArticleVMList(articleVMList)
+                homeState.updateArticleList(articleList.articleModels)
                 homeState.updateErrorMessage(nil)
                 
             case .Failure(let error):
@@ -41,13 +39,12 @@ extension HomeReducer: Reducer {
                 }
             }
             
-        case let action as MoreAllArticleResultAction:
+        case let action as HomeState.HomeMoreArticleResultAction:
             if let moreArticleList = action.result.value {
-                let articleVMList = generateArticleVMList(moreArticleList)
-                homeState.appendArticleVMList(articleVMList)
+                homeState.appendArticleList(moreArticleList.articleModels)
             }
             
-        case let action as ShowMoreLoadingAction:
+        case let action as HomeState.HomeShowMoreLoadingAction:
             homeState.updateShowMoreLoading(action.showMoreLoading)
             
         default:
@@ -58,9 +55,4 @@ extension HomeReducer: Reducer {
         return newState
     }
     
-}
-
-func generateArticleVMList(articleList: ArticleListModel) -> [ArticleVM]? {
-    let articleVMList = articleList.articleModels?.flatMap { ArticleVM(articleModel: $0) }
-    return articleVMList
 }

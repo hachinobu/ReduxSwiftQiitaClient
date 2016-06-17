@@ -9,9 +9,7 @@
 import Foundation
 
 struct LoadingState {
-    
     private(set) var isLoading: Bool = false
-    
 }
 
 extension LoadingState {

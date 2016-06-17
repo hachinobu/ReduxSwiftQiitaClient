@@ -11,20 +11,16 @@ import APIKit
 import ReSwift
 import Kingfisher
 import SwiftTask
+import Result
 
 struct QiitaAPIActionCreator {
     
-    static let PerPage: Int = 20
-    
-    static func fetchAllArticleList(finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
+    static func call<Request: QiitaRequestType>(request: Request, responseHandler: (Result<Request.Response, SessionTaskError>) -> Void) -> Store<AppState>.ActionCreator {
         
         return { state, store in
             
-            let request = GetAllArticleEndpoint(queryParameters: ["per_page": PerPage, "page": state.home.pageNumber])
             Session.sendRequest(request) { result in
-                let action = AllArticleResultAction(result: result)
-                store.dispatch(action)
-                finishHandler?(store)
+                responseHandler(result)
             }
             return nil
             
@@ -32,15 +28,14 @@ struct QiitaAPIActionCreator {
         
     }
     
-    static func fetchUserAllArticleList(userId: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
+    static func call(actionTasks: [Task<CGFloat, Action, SessionTaskError>], responseHandler: Result<[Action], SessionTaskError> -> Void) -> Store<AppState>.ActionCreator {
         
         return { state, store in
             
-            let request = GetUserArticleEndpoint(userId: userId, queryParameters: ["per_page": PerPage, "page": state.userArticleList.pageNumber])
-            Session.sendRequest(request) { result in
-                let action = UserArticleResultAction(result: result)
-                store.dispatch(action)
-                finishHandler?(store)
+            Task.all(actionTasks).success { (actions) -> Void in
+                responseHandler(Result(actions))
+                }.failure { (error, isCancelled) -> Void in
+                    responseHandler(Result(error: error!))
             }
             return nil
             
@@ -48,111 +43,50 @@ struct QiitaAPIActionCreator {
         
     }
     
-    static func fetchMoreArticleList(finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
-        
-        return { state, store in
-            
-            let request = GetAllArticleEndpoint(queryParameters: ["per_page": PerPage, "page": state.home.pageNumber])
-            Session.sendRequest(request) { result in
-                let action = MoreAllArticleResultAction(result: result)
-                store.dispatch(action)
-                finishHandler?(store)
-            }
-            return nil
-            
-        }
-        
-    }
-    
-    static func fetchMoreUserArticleList(userId: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
-        
-        return { state, store in
-            
-            let request = GetUserArticleEndpoint(userId: userId, queryParameters: ["per_page": PerPage, "page": state.userArticleList.pageNumber])
-            Session.sendRequest(request) { result in
-                let action: Action
-                if result.value?.articleModels?.count == 0 {
-                    action = FinishMoreUserArticleAction(finishMoreUserArticle: true)
-                }
-                else {
-                    action = MoreUserArticleResultAction(result: result)
-                }
-                
-                store.dispatch(action)
-                finishHandler?(store)
-            }
-            return nil
-            
-        }
-        
-    }
-    
-    static func fetchArticleDetailInfo(id: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
-        
-        return { state, store in
-            
-            let taskList: [Task<CGFloat, Action, SessionTaskError>] = [fetchArticleDetailTask(id, store: store), fetchArticleStokersTask(id, store: store)]
-            Task.all(taskList).success { actionList -> Void in
-                actionList.forEach { store.dispatch($0) }
-            }.failure { (error, _) -> Void in
-                let action = ArticleDetailErrorAction(error: error!)
-                store.dispatch(action)
-            }.then { _ in
-                finishHandler?(store)
-            }
-            return nil
-            
-        }
-        
-    }
-    
-    static func fetchArticleStockStatus(id: String, finishHandler: ((Store<AppState>) -> Void)?) -> Store<AppState>.ActionCreator {
-        
-        return { state, store in
-            
-            let request = GetArticleStockStatus(id: id)
-            Session.sendRequest(request) { result in
-                let hasStock: Bool = result.value != nil
-                let action = HasStockArticleAction(hasStock: hasStock)
-                store.dispatch(action)
-                finishHandler?(store)
-            }
-            return nil
-            
-        }
-        
-    }
-    
-    static func updateStockStatus(id: String, toStock: Bool, finishHandler: (Store<AppState> -> Void)?) -> Store<AppState>.ActionCreator {
-        
-        return { state, store in
-            
-            let method: HTTPMethod = toStock ? .PUT : .DELETE
-            let request = UpdateArticleStockStatus(id: id, method: method)
-            Session.sendRequest(request) { result in
-                let isStock = result.value != nil ? toStock : !toStock
-                let action = HasStockArticleAction(hasStock: isStock)
-                store.dispatch(action)
-                finishHandler?(store)
-            }
-            return nil
-            
-        }
-        
-    }
 }
 
 //MARK: generate Task
 extension QiitaAPIActionCreator {
     
-    private static func fetchArticleDetailTask(id: String, store: Store<AppState>) -> Task<CGFloat, Action, SessionTaskError> {
+    enum ArticleDetailTaskActionType {
+        case DetailFromAllList
+        case DetailFromUserList
+        
+        func generateArticleDetailAction(articleDetail: ArticleModel) -> Action {
+            switch self {
+            case .DetailFromAllList:
+                return ArticleDetailState.ArticleDetailAction(articleDetail: articleDetail)
+            case .DetailFromUserList:
+                return ArticleDetailState.UserArticleDetailAction(articleDetail: articleDetail)
+            }
+        }
+        
+        func generateArticleDetailStockersAction(stockers: UserListModel) -> Action {
+            switch self {
+            case .DetailFromAllList:
+                return ArticleDetailState.ArticleDetailStockersAction(stockers: stockers)
+            case .DetailFromUserList:
+                return ArticleDetailState.UserArticleDetailStockersAction(stockers: stockers)
+            }
+        }
+        
+    }
+    
+    static func fetchArticleDetailInfoActionTasks(id: String, actionType: ArticleDetailTaskActionType) -> [Task<CGFloat, Action, SessionTaskError>] {
+        let articleDetailTask = fetchArticleDetailTask(id, actionType: actionType)
+        let articleStockersTask = fetchArticleStokersTask(id, actionType: actionType)
+        return [articleDetailTask, articleStockersTask]
+    }
+    
+    private static func fetchArticleDetailTask(id: String, actionType: ArticleDetailTaskActionType) -> Task<CGFloat, Action, SessionTaskError> {
+        
         return Task { progress, fulfill, reject, configure in
             
             let request = GetArticleDetailEndpoint(id: id)
             Session.sendRequest(request) { result in
                 switch result {
-                case .Success(let article):
-                    let action = ArticleDetailAction(articleDetail: article)
+                case .Success(let articleDetail):
+                    let action = actionType.generateArticleDetailAction(articleDetail)
                     fulfill(action)
                 case .Failure(let error):
                     reject(error)
@@ -162,15 +96,15 @@ extension QiitaAPIActionCreator {
         }
     }
     
-    private static func fetchArticleStokersTask(id: String, store: Store<AppState>) -> Task<CGFloat, Action, SessionTaskError> {
+    private static func fetchArticleStokersTask(id: String, actionType: ArticleDetailTaskActionType) -> Task<CGFloat, Action, SessionTaskError> {
         
         return Task { progress, fulfill, reject, configure in
             
             let request = GetArticleStockersEndpoint(id: id)
             Session.sendRequest(request) { result in
                 switch result {
-                case .Success(let userList):
-                    let action = ArticleStockersAction(stockers: userList)
+                case .Success(let stockers):
+                    let action = actionType.generateArticleDetailStockersAction(stockers)
                     fulfill(action)
                 case .Failure(let error):
                     reject(error)

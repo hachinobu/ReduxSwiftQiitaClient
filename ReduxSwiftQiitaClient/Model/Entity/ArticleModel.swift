@@ -25,6 +25,13 @@ struct ArticleModel {
     
 }
 
+extension ArticleModel: Equatable {
+}
+
+func ==(lhs: ArticleModel, rhs: ArticleModel) -> Bool {
+    return lhs.id == rhs.id
+}
+
 extension ArticleModel: Mappable {
     
     init?(_ map: Map) { }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import ReSwift
 
 private extension Selector {
     static let stockButtonTapped = #selector(ArticleDetailTopInfoCell.stockButtonAction)
@@ -29,6 +30,7 @@ class ArticleDetailTopInfoCell: UITableViewCell {
         }
     }
     var selectedUserAction: ((userId: String) -> Void)?
+    var updateStockButtonAction: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,9 +44,7 @@ class ArticleDetailTopInfoCell: UITableViewCell {
     }
     
     func stockButtonAction() {
-        guard let articleInfo = articleInfo else { return }
-        let isStock = !articleInfo.stockStatus.isStock
-        mainStore.dispatch(QiitaAPIActionCreator.updateStockStatus(articleInfo.articleDetail.fetchId(), toStock: isStock, finishHandler: nil))
+        updateStockButtonAction?()
     }
     
     func tappedUserName() {
@@ -52,7 +52,7 @@ class ArticleDetailTopInfoCell: UITableViewCell {
         selectedUserAction?(userId: userId)
     }
     
-    private func updateCell() {
+    func updateCell() {
         guard let articleInfo = articleInfo else { return }
         let article = articleInfo.articleDetail
         titleLabel.text = article.fetchArticleTitle()

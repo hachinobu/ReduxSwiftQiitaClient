@@ -15,5 +15,6 @@ struct AppState: StateType {
     var home = HomeState()
     var articleDetail = ArticleDetailState()
     var userArticleList = UserArticleListState()
+    var userArticleDetail = ArticleDetailState()
     
 }

@@ -17,7 +17,6 @@ struct ArticleDetailState {
     private(set) var stockStatus: StockStatus?
     private(set) var stockUsers: UserListModel?
     private(set) var error: SessionTaskError?
-    private(set) var isUserArticleList: Bool = false
     
 }
 
@@ -47,14 +46,9 @@ extension ArticleDetailState {
     mutating func updateError(error: SessionTaskError?) {
         self.error = error
     }
-    
-    mutating func updateUserArticleList(isUserArticleList: Bool) {
-        self.isUserArticleList = isUserArticleList
-    }
-    
+        
 }
 
-//MARK;
 extension ArticleDetailState {
     
     private func fetchStockCountDisplay() -> String {
@@ -62,6 +56,10 @@ extension ArticleDetailState {
             return "0ストック"
         }
         return users.count == 100 ? "ストック数: 100+" : "ストック数: \(users.count)"
+    }
+    
+    func isReloadView() -> Bool {
+        return articleId != nil && stockUsers != nil && stockStatus != nil
     }
     
     func hasError() -> Bool {
@@ -112,24 +110,6 @@ extension ArticleDetailState {
     
     func fetchHtmlBody() -> String {
         return articleDetail?.fetchRenderedBody() ?? ""
-    }
-    
-}
-
-struct StockStatus {
-    
-    let isStock: Bool
-    
-    func fetchBackgroundColor() -> UIColor {
-        return isStock ? UIColor.greenColor() : UIColor.whiteColor()
-    }
-    
-    func fetchTextColor() -> UIColor {
-        return isStock ? UIColor.whiteColor() : UIColor.blackColor()
-    }
-    
-    func fetchStockStatusTitle() -> String {
-        return isStock ? "ストック済み" : "ストック"
     }
     
 }

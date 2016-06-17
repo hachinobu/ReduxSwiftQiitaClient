@@ -11,7 +11,6 @@ PODS:
   - Result (2.0.0)
   - ReSwift (1.0.0)
   - SwiftTask (4.0.0)
-  - Timepiece (0.4.2)
 
 DEPENDENCIES:
   - APIKit (~> 2.0.0)
@@ -20,7 +19,6 @@ DEPENDENCIES:
   - R.swift
   - ReactKit
   - ReSwift
-  - Timepiece
 
 SPEC CHECKSUMS:
   APIKit: 7b61788273235bab213477b22f1897872047da10
@@ -32,6 +30,5 @@ SPEC CHECKSUMS:
   Result: 9e75e1111c774c6ac594e14907b15057053a7959
   ReSwift: 2097946852b045bcc04182b63cdab9ab7fc35812
   SwiftTask: 724ff63fc8bd9b366d242696d4aff098f6de3c3a
-  Timepiece: cf53bb908bf542acc0e3d5f69cabfed869df4ebd
 
 COCOAPODS: 0.39.0

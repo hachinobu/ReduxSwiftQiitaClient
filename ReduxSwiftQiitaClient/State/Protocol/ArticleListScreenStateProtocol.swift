@@ -11,7 +11,7 @@ import Foundation
 protocol ArticleListScreenStateProtocol {
     
     var pageNumber: Int { get set }
-    var articleVMList: [ArticleVM]? { get set }
+    var articleList: [ArticleModel]? { get set }
     var errorMessage: String? { get set }
     var isRefresh: Bool { get set }
     var showMoreLoading: Bool { get set }
@@ -24,14 +24,15 @@ extension ArticleListScreenStateProtocol {
         self.isRefresh = isRefresh
     }
     
-    mutating func updateArticleVMList(articleVMList: [ArticleVM]?) {
-        self.articleVMList = articleVMList
+    mutating func updateArticleList(articleList: [ArticleModel]?) {
+        self.articleList = articleList
         incrementPageNumber()
     }
     
-    mutating func appendArticleVMList(articleVMList: [ArticleVM]?) {
-        guard let articleVMList = articleVMList else { return }
-        self.articleVMList?.appendContentsOf(articleVMList)
+    mutating func appendArticleList(articleList: [ArticleModel]?) {
+        guard let articleList = articleList else { return }
+        self.articleList?.appendContentsOf(articleList)
+        self.articleList = self.articleList?.uniqueBy()
         incrementPageNumber()
     }
     
@@ -55,15 +56,15 @@ extension ArticleListScreenStateProtocol {
 
 extension ArticleListScreenStateProtocol {
     
-    func fetchArticleVM(index: Int) -> ArticleVM {
-        guard let articleVMList = articleVMList where articleVMList.count > index else {
-            return ArticleVM()
+    func fetchArticle(index: Int) -> ArticleModel {
+        guard let articleList = articleList where articleList.count > index else {
+            return ArticleModel()
         }
-        return articleVMList[index]
+        return articleList[index]
     }
     
     func fetchArticleListCount() -> Int {
-        return articleVMList?.count ?? 0
+        return articleList?.count ?? 0
     }
     
     func hasError() -> Bool {
@@ -75,7 +76,7 @@ extension ArticleListScreenStateProtocol {
     }
     
     func fetchArticleListEndIndex() -> Int {
-        return articleVMList?.endIndex.predecessor() ?? 0
+        return articleList?.endIndex.predecessor() ?? 0
     }
     
 }

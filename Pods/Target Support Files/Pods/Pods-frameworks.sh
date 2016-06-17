@@ -92,7 +92,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/ReactKit.framework"
   install_framework "Pods/Result.framework"
   install_framework "Pods/SwiftTask.framework"
-  install_framework "Pods/Timepiece.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/APIKit.framework"
@@ -103,5 +102,4 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/ReactKit.framework"
   install_framework "Pods/Result.framework"
   install_framework "Pods/SwiftTask.framework"
-  install_framework "Pods/Timepiece.framework"
 fi
