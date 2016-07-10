@@ -55,7 +55,7 @@ extension ArticleDetailState {
         guard let users = stockUsers?.userModels else {
             return "0ストック"
         }
-        return users.count == 100 ? "ストック数: 100+" : "ストック数: \(users.count)"
+        return users.count >= 100 ? "ストック数: 100+" : "ストック数: \(users.count)"
     }
     
     func isReloadView() -> Bool {
