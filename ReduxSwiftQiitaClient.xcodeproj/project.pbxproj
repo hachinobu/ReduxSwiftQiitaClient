@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		53D36609C29DE6CA64D29D8D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A59E533B1594AB4994B4693D /* Pods.framework */; };
 		C21A8B2B1CF462AF00EB487C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B2A1CF462AF00EB487C /* AppDelegate.swift */; };
 		C21A8B321CF462AF00EB487C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C21A8B311CF462AF00EB487C /* Assets.xcassets */; };
 		C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C21A8B331CF462AF00EB487C /* LaunchScreen.storyboard */; };
@@ -53,6 +52,7 @@
 		C2E169C41CFF0F32009F1459 /* ArticleDetailBodyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169C31CFF0F32009F1459 /* ArticleDetailBodyCell.swift */; };
 		C2E3559E1D11723300F13FBE /* HomeStateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E3559D1D11723300F13FBE /* HomeStateAction.swift */; };
 		C2F3B5D31D181B1000462440 /* NavigationBarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3B5D21D181B1000462440 /* NavigationBarProtocol.swift */; };
+		FCD289B728F6E5755ED7F109 /* Pods_ReduxSwiftQiitaClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 803039DCB9DB73B265A0E03E /* Pods_ReduxSwiftQiitaClient.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,8 +73,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3BA36762FB2E4CBBE9ED51A5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		6BD54AEBE8A2F0F45AFDFD8A /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		41E93F5C9BF6F037F44B2F96 /* Pods-ReduxSwiftQiitaClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReduxSwiftQiitaClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReduxSwiftQiitaClient/Pods-ReduxSwiftQiitaClient.release.xcconfig"; sourceTree = "<group>"; };
+		803039DCB9DB73B265A0E03E /* Pods_ReduxSwiftQiitaClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReduxSwiftQiitaClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BFCCADEEA9C76ACB9BA1696 /* Pods-ReduxSwiftQiitaClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReduxSwiftQiitaClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReduxSwiftQiitaClient/Pods-ReduxSwiftQiitaClient.debug.xcconfig"; sourceTree = "<group>"; };
 		A59E533B1594AB4994B4693D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C21A8B271CF462AF00EB487C /* ReduxSwiftQiitaClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReduxSwiftQiitaClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C21A8B2A1CF462AF00EB487C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -134,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D36609C29DE6CA64D29D8D /* Pods.framework in Frameworks */,
+				FCD289B728F6E5755ED7F109 /* Pods_ReduxSwiftQiitaClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,11 +156,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5F9423C796E74EE54364D6B3 /* Pods */ = {
+		81BD9404716DFD5C5D063AD1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6BD54AEBE8A2F0F45AFDFD8A /* Pods.debug.xcconfig */,
-				3BA36762FB2E4CBBE9ED51A5 /* Pods.release.xcconfig */,
+				8BFCCADEEA9C76ACB9BA1696 /* Pods-ReduxSwiftQiitaClient.debug.xcconfig */,
+				41E93F5C9BF6F037F44B2F96 /* Pods-ReduxSwiftQiitaClient.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -171,8 +172,8 @@
 				C21A8B3E1CF462AF00EB487C /* ReduxSwiftQiitaClientTests */,
 				C21A8B491CF462AF00EB487C /* ReduxSwiftQiitaClientUITests */,
 				C21A8B281CF462AF00EB487C /* Products */,
-				5F9423C796E74EE54364D6B3 /* Pods */,
 				D52DB9078718A0F4ABB4817E /* Frameworks */,
+				81BD9404716DFD5C5D063AD1 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -395,6 +396,7 @@
 			isa = PBXGroup;
 			children = (
 				A59E533B1594AB4994B4693D /* Pods.framework */,
+				803039DCB9DB73B265A0E03E /* Pods_ReduxSwiftQiitaClient.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -406,13 +408,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C21A8B4F1CF462AF00EB487C /* Build configuration list for PBXNativeTarget "ReduxSwiftQiitaClient" */;
 			buildPhases = (
+				CD779A487222D83FB6AE131F /* [CP] Check Pods Manifest.lock */,
 				C21A8B591CF46BE300EB487C /* ShellScript */,
-				8D4948B4B7485A9779E201A3 /* Check Pods Manifest.lock */,
 				C21A8B231CF462AF00EB487C /* Sources */,
 				C21A8B241CF462AF00EB487C /* Frameworks */,
 				C21A8B251CF462AF00EB487C /* Resources */,
-				0EB3CD33AC58AD6EBC40CC5B /* Embed Pods Frameworks */,
-				28D415FE92F747778027E0B5 /* Copy Pods Resources */,
+				9AEEA480260C99BD2FE5B586 /* [CP] Embed Pods Frameworks */,
+				924533BCEE7406F7ACDF5838 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -534,49 +536,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0EB3CD33AC58AD6EBC40CC5B /* Embed Pods Frameworks */ = {
+		924533BCEE7406F7ACDF5838 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReduxSwiftQiitaClient/Pods-ReduxSwiftQiitaClient-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		28D415FE92F747778027E0B5 /* Copy Pods Resources */ = {
+		9AEEA480260C99BD2FE5B586 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8D4948B4B7485A9779E201A3 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReduxSwiftQiitaClient/Pods-ReduxSwiftQiitaClient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C21A8B591CF46BE300EB487C /* ShellScript */ = {
@@ -591,6 +578,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" \"$SRCROOT\"";
+		};
+		CD779A487222D83FB6AE131F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -768,7 +770,7 @@
 		};
 		C21A8B501CF462AF00EB487C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6BD54AEBE8A2F0F45AFDFD8A /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 8BFCCADEEA9C76ACB9BA1696 /* Pods-ReduxSwiftQiitaClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ReduxSwiftQiitaClient/Info.plist;
@@ -780,7 +782,7 @@
 		};
 		C21A8B511CF462AF00EB487C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BA36762FB2E4CBBE9ED51A5 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 41E93F5C9BF6F037F44B2F96 /* Pods-ReduxSwiftQiitaClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ReduxSwiftQiitaClient/Info.plist;
