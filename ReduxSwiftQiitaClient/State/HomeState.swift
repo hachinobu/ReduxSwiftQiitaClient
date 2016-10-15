@@ -10,10 +10,12 @@ import Foundation
 
 struct HomeState: ArticleListScreenStateProtocol {
     
+    var userId: String!
     var pageNumber: Int = 1
     var articleList: [ArticleModel]?
     var errorMessage: String?
     var isRefresh: Bool = false
     var showMoreLoading: Bool = false
+    var finishMoreUserArticle: Bool = false
     
 }

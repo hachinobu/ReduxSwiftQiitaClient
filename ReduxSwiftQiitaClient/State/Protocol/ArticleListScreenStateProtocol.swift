@@ -15,6 +15,8 @@ protocol ArticleListScreenStateProtocol {
     var errorMessage: String? { get set }
     var isRefresh: Bool { get set }
     var showMoreLoading: Bool { get set }
+    var userId: String! { get set }
+    var finishMoreUserArticle: Bool { get set }
     
 }
 
@@ -50,6 +52,14 @@ extension ArticleListScreenStateProtocol {
     
     private mutating func incrementPageNumber() {
         pageNumber += 1
+    }
+    
+    mutating func updateUserId(userId: String!) {
+        self.userId = userId
+    }
+    
+    mutating func updateFinishMoreUserArticle(finishMoreUserArticle: Bool) {
+        self.finishMoreUserArticle = finishMoreUserArticle
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct UserArticleListState: UserArticleListScreenStateProtocol {
+struct UserArticleListState: ArticleListScreenStateProtocol {
     
     var userId: String!
     var pageNumber: Int = 1
