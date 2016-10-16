@@ -22,9 +22,9 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     let refreshUI = UIRefreshControl()
     
     var listState: ArticleListScreenStateProtocol!
-    var listActionCreator: ListStateActionCreaterProtocol!
+    var listActionCreator: ListStateActionCreatorProtocol!
     
-    func inject(listState: ArticleListScreenStateProtocol!, listActionCreator: ListStateActionCreaterProtocol) {
+    func inject(listState: ArticleListScreenStateProtocol!, listActionCreator: ListStateActionCreatorProtocol) {
         self.listState = listState
         self.listActionCreator = listActionCreator
     }

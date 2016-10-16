@@ -11,7 +11,7 @@ import ReSwift
 import Result
 import APIKit
 
-protocol ListStateActionCreaterProtocol {
+protocol ListStateActionCreatorProtocol {
     func generateListUserIdAction() -> Store<AppState>.ActionCreator
     func generateListRefreshAction(isRefresh: Bool, pageNumber: Int) -> Store<AppState>.ActionCreator
     func generateListResultAction(result: Result<ArticleListModel, SessionTaskError>) -> Store<AppState>.ActionCreator
@@ -21,7 +21,7 @@ protocol ListStateActionCreaterProtocol {
     func generateResetListAction() -> Store<AppState>.ActionCreator
 }
 
-struct HomeStateActionCreator: ListStateActionCreaterProtocol {
+struct HomeStateActionCreator: ListStateActionCreatorProtocol {
     
     func generateListUserIdAction() -> Store<AppState>.ActionCreator {
         return { (state: AppState, store: Store<AppState>) in
@@ -67,7 +67,7 @@ struct HomeStateActionCreator: ListStateActionCreaterProtocol {
     
 }
 
-struct UserListStateActionCreator: ListStateActionCreaterProtocol {
+struct UserListStateActionCreator: ListStateActionCreatorProtocol {
     
     func generateListUserIdAction() -> Store<AppState>.ActionCreator {
         return { (state: AppState, store: Store<AppState>) in
