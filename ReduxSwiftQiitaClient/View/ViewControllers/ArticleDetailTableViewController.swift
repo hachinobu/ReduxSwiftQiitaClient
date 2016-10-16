@@ -86,7 +86,7 @@ class ArticleDetailTableViewController: UITableViewController, NavigationBarProt
     private func segueUserArticleList(userId: String) {
         mainStore.dispatch(UserArticleListState.UserArticleListUserIdAction(userId: userId))
         let vc = R.storyboard.userArticleList.initialViewController()!
-        vc.inject(mainStore.state.userArticleList)
+        vc.inject(mainStore.state.userArticleList, listActionCreator: UserListStateActionCreator())
         navigationController?.pushViewController(vc, animated: true)
     }
 

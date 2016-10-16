@@ -19,6 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         mainStore.subscribe(self)
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let vc = R.storyboard.userArticleList.initialViewController()!
+        vc.inject(mainStore.state.home, listActionCreator: HomeStateActionCreator())
+        let nav = UINavigationController(rootViewController: vc)
+        window?.rootViewController = nav
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

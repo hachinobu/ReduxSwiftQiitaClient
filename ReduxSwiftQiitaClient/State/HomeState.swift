@@ -10,6 +10,7 @@ import Foundation
 
 struct HomeState: ArticleListScreenStateProtocol {
     
+    let title: String = "ホーム"
     var userId: String!
     var pageNumber: Int = 1
     var articleList: [ArticleModel]?

@@ -13,7 +13,6 @@
 		C21A8B401CF462AF00EB487C /* ReduxSwiftQiitaClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B3F1CF462AF00EB487C /* ReduxSwiftQiitaClientTests.swift */; };
 		C21A8B4B1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B4A1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift */; };
 		C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B5D1CF46C7E00EB487C /* R.generated.swift */; };
-		C21A8B611CF46EA400EB487C /* ArticleList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C21A8B601CF46EA400EB487C /* ArticleList.storyboard */; };
 		C21A8B641CF4745D00EB487C /* ArticleListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B631CF4745D00EB487C /* ArticleListCell.swift */; };
 		C21A8B6B1CF4788C00EB487C /* ArticleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6A1CF4788C00EB487C /* ArticleModel.swift */; };
 		C21A8B6D1CF478F300EB487C /* TagModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21A8B6C1CF478F300EB487C /* TagModel.swift */; };
@@ -32,7 +31,6 @@
 		C24C81AA1CF5C51400924574 /* HomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81A91CF5C51400924574 /* HomeState.swift */; };
 		C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */; };
 		C270968E1CFAB570008E3273 /* QiitaAPIActionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270968D1CFAB570008E3273 /* QiitaAPIActionCreator.swift */; };
-		C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */; };
 		C27096921CFAC6CB008E3273 /* LoadingStateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C27096911CFAC6CB008E3273 /* LoadingStateAction.swift */; };
 		C28DA4011D127D10008848B7 /* UserArticleListStateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28DA4001D127D10008848B7 /* UserArticleListStateAction.swift */; };
 		C28DA4031D128536008848B7 /* ArticleDetailStateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28DA4021D128536008848B7 /* ArticleDetailStateAction.swift */; };
@@ -41,6 +39,7 @@
 		C28DA4171D140C7F008848B7 /* QiitaRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28DA4161D140C7F008848B7 /* QiitaRequestType.swift */; };
 		C28DA41A1D1424AF008848B7 /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28DA4191D1424AF008848B7 /* Array+Extension.swift */; };
 		C2919F9A1DB237A500D79FB2 /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2919F991DB237A500D79FB2 /* Secrets.plist */; };
+		C2919F9C1DB24E2F00D79FB2 /* ListStateActionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2919F9B1DB24E2F00D79FB2 /* ListStateActionCreator.swift */; };
 		C2BC2EC71D04516B005B920F /* UserListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2BC2EC61D04516B005B920F /* UserListModel.swift */; };
 		C2C1C2AB1CFD575400DCD4CE /* MoreLoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */; };
 		C2E169BA1CFEF4FA009F1459 /* ArticleDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */; };
@@ -88,7 +87,6 @@
 		C21A8B4A1CF462AF00EB487C /* ReduxSwiftQiitaClientUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReduxSwiftQiitaClientUITests.swift; sourceTree = "<group>"; };
 		C21A8B4C1CF462AF00EB487C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C21A8B5D1CF46C7E00EB487C /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
-		C21A8B601CF46EA400EB487C /* ArticleList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArticleList.storyboard; sourceTree = "<group>"; };
 		C21A8B631CF4745D00EB487C /* ArticleListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListCell.swift; sourceTree = "<group>"; };
 		C21A8B6A1CF4788C00EB487C /* ArticleModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleModel.swift; sourceTree = "<group>"; };
 		C21A8B6C1CF478F300EB487C /* TagModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagModel.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 		C24C81A91CF5C51400924574 /* HomeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeState.swift; sourceTree = "<group>"; };
 		C24C81AF1CF5CD8B00924574 /* HomeReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeReducer.swift; sourceTree = "<group>"; };
 		C270968D1CFAB570008E3273 /* QiitaAPIActionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaAPIActionCreator.swift; sourceTree = "<group>"; };
-		C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleListTableViewController.swift; sourceTree = "<group>"; };
 		C27096911CFAC6CB008E3273 /* LoadingStateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingStateAction.swift; sourceTree = "<group>"; };
 		C28DA4001D127D10008848B7 /* UserArticleListStateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserArticleListStateAction.swift; sourceTree = "<group>"; };
 		C28DA4021D128536008848B7 /* ArticleDetailStateAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailStateAction.swift; sourceTree = "<group>"; };
@@ -116,6 +113,7 @@
 		C28DA4161D140C7F008848B7 /* QiitaRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QiitaRequestType.swift; sourceTree = "<group>"; };
 		C28DA4191D1424AF008848B7 /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		C2919F991DB237A500D79FB2 /* Secrets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Secrets.plist; path = ReduxSwiftQiitaClient/Secrets.plist; sourceTree = SOURCE_ROOT; };
+		C2919F9B1DB24E2F00D79FB2 /* ListStateActionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListStateActionCreator.swift; sourceTree = "<group>"; };
 		C2BC2EC61D04516B005B920F /* UserListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserListModel.swift; sourceTree = "<group>"; };
 		C2C1C2AA1CFD575400DCD4CE /* MoreLoadingFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoreLoadingFooterView.swift; sourceTree = "<group>"; };
 		C2E169B91CFEF4FA009F1459 /* ArticleDetailState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailState.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 		C21A8B5F1CF46E2C00EB487C /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				C21A8B601CF46EA400EB487C /* ArticleList.storyboard */,
 				C2E169BD1CFF0634009F1459 /* ArticleDetail.storyboard */,
 				C28DA40F1D12CB75008848B7 /* UserArticleDetail.storyboard */,
 				C245AC2E1D0E4EB400A2F232 /* UserArticleList.storyboard */,
@@ -266,9 +263,8 @@
 		C21A8B651CF4751B00EB487C /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C270968F1CFAB5C9008E3273 /* ArticleListTableViewController.swift */,
-				C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */,
 				C245AC301D0E6E2B00A2F232 /* UserArticleListViewController.swift */,
+				C2E169BF1CFF0C46009F1459 /* ArticleDetailTableViewController.swift */,
 				C28DA4111D12D245008848B7 /* UserArticleDetailTableViewController.swift */,
 			);
 			path = ViewControllers;
@@ -353,6 +349,7 @@
 				C2E3559D1D11723300F13FBE /* HomeStateAction.swift */,
 				C28DA4001D127D10008848B7 /* UserArticleListStateAction.swift */,
 				C28DA4021D128536008848B7 /* ArticleDetailStateAction.swift */,
+				C2919F9B1DB24E2F00D79FB2 /* ListStateActionCreator.swift */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -511,7 +508,6 @@
 				C245AC2F1D0E4EB400A2F232 /* UserArticleList.storyboard in Resources */,
 				C21A8B351CF462AF00EB487C /* LaunchScreen.storyboard in Resources */,
 				C2E169BE1CFF0634009F1459 /* ArticleDetail.storyboard in Resources */,
-				C21A8B611CF46EA400EB487C /* ArticleList.storyboard in Resources */,
 				C21A8B321CF462AF00EB487C /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,7 +604,6 @@
 				C28DA4031D128536008848B7 /* ArticleDetailStateAction.swift in Sources */,
 				C2E169BA1CFEF4FA009F1459 /* ArticleDetailState.swift in Sources */,
 				C21A8B6F1CF4797F00EB487C /* UserModel.swift in Sources */,
-				C27096901CFAB5C9008E3273 /* ArticleListTableViewController.swift in Sources */,
 				C21A8B741CF47C5700EB487C /* QiitaEndpoint.swift in Sources */,
 				C2E169C21CFF0E07009F1459 /* ArticleDetailTopInfoCell.swift in Sources */,
 				C28DA4171D140C7F008848B7 /* QiitaRequestType.swift in Sources */,
@@ -632,6 +627,7 @@
 				C2E3559E1D11723300F13FBE /* HomeStateAction.swift in Sources */,
 				C24C81B01CF5CD8B00924574 /* HomeReducer.swift in Sources */,
 				C2E169BC1CFF01EF009F1459 /* ArticleDetailReducer.swift in Sources */,
+				C2919F9C1DB24E2F00D79FB2 /* ListStateActionCreator.swift in Sources */,
 				C21A8B5E1CF46C7E00EB487C /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

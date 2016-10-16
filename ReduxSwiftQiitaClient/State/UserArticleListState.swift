@@ -10,6 +10,7 @@ import Foundation
 
 struct UserArticleListState: ArticleListScreenStateProtocol {
     
+    let title: String = "投稿一覧"
     var userId: String!
     var pageNumber: Int = 1
     var articleList: [ArticleModel]?

@@ -30,4 +30,8 @@ extension HomeState {
         let result: Result<GetAllArticleEndpoint.Response, SessionTaskError>
     }
     
+    struct HomeFinishMoreArticleAction: Action {
+        let finishMoreUserArticle: Bool
+    }
+    
 }

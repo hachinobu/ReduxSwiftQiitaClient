@@ -10,6 +10,7 @@ import Foundation
 
 protocol ArticleListScreenStateProtocol {
     
+    var title: String { get }
     var pageNumber: Int { get set }
     var articleList: [ArticleModel]? { get set }
     var errorMessage: String? { get set }

@@ -9,6 +9,8 @@
 import UIKit
 import ReSwift
 import Kingfisher
+import APIKit
+import Result
 
 private extension Selector {
     static let pullToRefresh = #selector(UserArticleListViewController.refreshData)
@@ -20,9 +22,11 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     let refreshUI = UIRefreshControl()
     
     var listState: ArticleListScreenStateProtocol!
+    var listActionCreator: ListStateActionCreaterProtocol!
     
-    func inject(listState: ArticleListScreenStateProtocol!) {
+    func inject(listState: ArticleListScreenStateProtocol!, listActionCreator: ListStateActionCreaterProtocol) {
         self.listState = listState
+        self.listActionCreator = listActionCreator
     }
     
     override func viewDidLoad() {
@@ -45,11 +49,11 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     }
     
     deinit {
-        mainStore.dispatch(UserArticleListState.UserResetArticleStateAction())
+        mainStore.dispatch(listActionCreator.generateResetListAction())
     }
     
     private func setupUI() {
-        title = "投稿一覧"
+        title = listState.title
         setupBackBarButton()
         tableView.addSubview(refreshUI)
         refreshUI.addTarget(self, action: .pullToRefresh, forControlEvents: .ValueChanged)
@@ -58,18 +62,32 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     func refreshData() {
         
         mainStore.dispatch(LoadingState.LoadingAction(isLoading: true))
-        mainStore.dispatch(UserArticleListState.UserArticleListRefreshAction(isRefresh: true, pageNumber: 1))
+        mainStore.dispatch(listActionCreator.generateListRefreshAction(true, pageNumber: 1))
         
-        let actionCreator = QiitaAPIActionCreator.call(generateUserAllArticleList()) { [weak self] result in
-            
-            mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
-            let pageNumber = self?.listState.pageNumber ?? 1
-            mainStore.dispatch(UserArticleListState.UserArticleListRefreshAction(isRefresh: false, pageNumber: pageNumber))
-            let action = UserArticleListState.UserArticleResultAction(result: result)
-            mainStore.dispatch(action)
-            
+        let actionCreator: Store<AppState>.ActionCreator
+        if listState.userId == nil {
+            let request = GetAllArticleEndpoint(queryParameters: ["per_page": 20, "page": listState.pageNumber])
+            actionCreator = QiitaAPIActionCreator.call(request) { [weak self] result in
+                self?.refreshDataResponseHandler(result)
+            }
         }
+        else {
+            let request = GetUserArticleEndpoint(userId: listState.userId, queryParameters: ["per_page": 20, "page": listState.pageNumber])
+            actionCreator = QiitaAPIActionCreator.call(request) { [weak self] result in
+                self?.refreshDataResponseHandler(result)
+            }
+        }
+        
         mainStore.dispatch(actionCreator)
+    }
+    
+    private func refreshDataResponseHandler(result: Result<ArticleListModel, SessionTaskError>) {
+        mainStore.dispatch(LoadingState.LoadingAction(isLoading: false))
+        let pageNumber = listState.pageNumber
+        
+        mainStore.dispatch(listActionCreator.generateListRefreshAction(false, pageNumber: pageNumber))
+        let action = listActionCreator.generateListResultAction(result)
+        mainStore.dispatch(action)
     }
 
     // MARK: - Table view data source
@@ -86,22 +104,34 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         guard indexPath.row == listState.fetchArticleListEndIndex() && !listState.showMoreLoading && !listState.finishMoreUserArticle else { return }
         
-        mainStore.dispatch(UserArticleListState.UserArticleListShowMoreLoadingAction(showMoreLoading: true))
-        let actionCreator = QiitaAPIActionCreator.call(generateUserAllArticleList()) { result in
-            
-            mainStore.dispatch(UserArticleListState.UserArticleListShowMoreLoadingAction(showMoreLoading: false))
-            let action: Action
-            if result.value?.articleModels?.count == 0 {
-                action = UserArticleListState.UserFinishMoreArticleAction(finishMoreUserArticle: true)
+        mainStore.dispatch(listActionCreator.generateListShowMoreLoadingAction(true))
+        let actionCreator: Store<AppState>.ActionCreator
+        if listState.userId == nil {
+            let request = GetAllArticleEndpoint(queryParameters: ["per_page": 20, "page": listState.pageNumber])
+            actionCreator = QiitaAPIActionCreator.call(request) { [weak self] result in
+                self?.moreListResponseHandler(result)
             }
-            else {
-                action = UserArticleListState.UserMoreArticleResultAction(result: result)
+        }
+        else {
+            let request = GetUserArticleEndpoint(userId: listState.userId, queryParameters: ["per_page": 20, "page": listState.pageNumber])
+            actionCreator = QiitaAPIActionCreator.call(request) { [weak self] result in
+                self?.moreListResponseHandler(result)
             }
-            
-            mainStore.dispatch(action)
         }
         
         mainStore.dispatch(actionCreator)
+    }
+    
+    private func moreListResponseHandler(result: Result<ArticleListModel, SessionTaskError>) {
+        mainStore.dispatch(listActionCreator.generateListShowMoreLoadingAction(false))
+        let action: Store<AppState>.ActionCreator
+        if result.value?.articleModels?.count == 0 {
+            action = listActionCreator.generateFinishMoreListAction(true)
+        }
+        else {
+            action = listActionCreator.generateMoreListResultAction(result)
+        }
+        mainStore.dispatch(action)
     }
     
     // MARK: - Table view delegate
@@ -115,20 +145,12 @@ class UserArticleListViewController: UITableViewController, NavigationBarProtoco
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let article = listState.fetchArticle(indexPath.row)
-        let action = ArticleDetailState.UserArticleDetailIdAction(articleId: article.fetchId())
+        let action = ArticleDetailState.ArticleDetailIdAction(articleId: article.fetchId())
         mainStore.dispatch(action)
-        let vc = R.storyboard.userArticleDetail.initialViewController()!
+        let vc = R.storyboard.articleDetail.initialViewController()!
         navigationController?.pushViewController(vc, animated: true)
     }
 
-}
-
-extension UserArticleListViewController {
-    
-    private func generateUserAllArticleList() -> GetUserArticleEndpoint {
-        return GetUserArticleEndpoint(userId: listState.userId, queryParameters: ["per_page": 20, "page": listState.pageNumber])
-    }
-    
 }
 
 //MARK: StoreSubscriber
